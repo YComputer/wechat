@@ -27,9 +27,9 @@ app.use(function*(next) {
     // } else {
     //     this.body = 'wrong'
     // }
-    
+
 })
 
-app.listen(1234)
+app.listen(80)
 
 console.log('listening: 1234')
