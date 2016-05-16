@@ -3,7 +3,7 @@
 var sha1 = require('sha1')
 
 module.exports = function(opts) {
-    function*(next) {
+    return function*(next) {
         console.log(this.query)
 
         var token = opts.token
