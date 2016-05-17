@@ -12,7 +12,7 @@ var config = {
         appSecret: 'db9c8bffb60da0479ab35960676d9f6f',
         token: 'xiaobing',
         getAccessToken: function() {
-            return util.readFileAsync(wechat_file)
+            return util.readFileAsync(wechat_file, 'utf-8')
         },
         saveAccessToken: function(data) {
         	data = JSON.stringify(data)
