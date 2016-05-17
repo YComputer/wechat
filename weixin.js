@@ -9,7 +9,7 @@ exports.reply = function* (next){
 				console.log('扫二维码进来：' + message.EventKey + ' ' + message.ticket)
 			}
 
-			this.body = '欢迎订阅 fooads\r\n' + ' 消息ID：' + message.MsgId
+			this.body = '欢迎订阅 fooads\r\n' + ' 消息ID：' + message.MsgId + '请输入1查询订单，2查询余额，3进行充值'
 		} else if(message.Event === 'unsubscribe'){
 			//可以记录到数据库中查看取消订阅的用户信息
 			console.log('取消关注')
@@ -31,11 +31,11 @@ exports.reply = function* (next){
 		var content = message.Content
 		var reply = '你说的 '+ message.Content + ' 太复杂了'
 
-		if(content === 1){
+		if(content === '1'){
 			reply = '你输入了1'
-		}else if(content === 2){
+		}else if(content === '2'){
 			reply = '你输入了2'
-		}else if(content === 3){
+		}else if(content === '3'){
 			reply = '你输入了3'
 		}
 
