@@ -10,7 +10,7 @@ module.exports = function(opts) {
     var wechat = new Wechat(opts)
 
     return function*(next) {
-        console.log(this.query)
+        console.log('query from weixin--->',this.query)
         var token = opts.token
         var signature = this.query.signature
         var nonce = this.query.nonce
@@ -26,6 +26,7 @@ module.exports = function(opts) {
                 this.body = 'wrong'
             }
         }else if(this.method === 'POST'){
+            console.log('post data from weixin--->')
             if(sha !== signature){
                 this.body = 'wrong'
                 return false
