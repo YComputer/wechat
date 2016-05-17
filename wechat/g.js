@@ -3,6 +3,7 @@
 var sha1 = require('sha1')
 var getRawBody = require('raw-body')
 var Wechat = require('./wechat')
+var util = require('./util')
 
 
 module.exports = function(opts) {
@@ -27,7 +28,7 @@ module.exports = function(opts) {
                 this.body = 'wrong'
             }
         }else if(this.method === 'POST'){
-            console.log('post from weixin--->')
+            console.log('post from weixin rawdata--->')
             if(sha !== signature){
                 this.body = 'wrong'
                 return false
@@ -38,8 +39,12 @@ module.exports = function(opts) {
                 limit: '1mb',
                 encoding: this.charset
             })
-
             console.log(data.toString())
+
+            var content = yield util.parseXMLAsync(data)
+            console.log('rawdata after parse--->', content)
+
+
 
         }
 
