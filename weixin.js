@@ -32,12 +32,30 @@ exports.reply = function* (next){
 		var reply = '你说的 '+ message.Content + ' 太复杂了'
 
 		if(content === '1'){
-			reply = '你输入了1'
+			reply = '你的订单正在处理中'
 		}else if(content === '2'){
-			reply = '你输入了2'
+			reply = '你的余额为88888'
 		}else if(content === '3'){
-			reply = '你输入了3'
+			reply = '请选择充值种类'
+		}else if(content === '4'){
+			reply = [{
+				title:'图文的title',
+				description:'图文的description',
+				picUrl:'http://fooads.com/dist/img/people.png',
+				url:'http://fooads.com/'
+			},{
+				title:'图文的title',
+				description:'图文的description',
+				picUrl:'http://fooads.com/dist/img/date.png',
+				url:'http://fooads.com/'
+			},{
+				title:'图文的title',
+				description:'图文的description',
+				picUrl:'http://fooads.com/dist/img/data.png',
+				url:'http://fooads.com/'
+			}]
 		}
+		
 
 		this.body = reply
 	}
