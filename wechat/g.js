@@ -16,7 +16,7 @@ function Wechat(opts) {
     this.getAccessToken = opts.getAccessToken
     this.saveAccessToken = opts.saveAccessToken
 
-    return this.getAccessToken()
+    this.getAccessToken()
         .then(function(data) {
             try {
                 data = JSON.parse(data)
@@ -24,7 +24,7 @@ function Wechat(opts) {
                 return that.updateAccessToken()
             }
             if (that.isValidAccessToken(data)) {
-                Promise.resolve(data)
+                return Promise.resolve(data)
             } else {
                 return that.updateAccessToken()
             }
@@ -65,10 +65,10 @@ Wechat.prototype.updateAccessToken = function() {
             console.log('token-response', response.body)
             var data = response.body
             var now = (new Date().getTime())
-            console.log('now----',now)
+            console.log('now----', now)
             var expires_in = now + (data.expires_in - 20) * 1000
-            console.log('data.expires_in----',data.expires_in)
-            console.log('expires_in----',expires_in)
+            console.log('data.expires_in----', data.expires_in)
+            console.log('expires_in----', expires_in)
             data.expires_in = expires_in
             resolve(data)
 
