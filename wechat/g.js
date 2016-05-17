@@ -20,13 +20,14 @@ module.exports = function(opts) {
         var sha = sha1(str)
 
         if (this.method === 'GET') {
+            console.log('get from weixin--->')
             if (sha === signature) {
                 this.body = echostr + ''
             } else {
                 this.body = 'wrong'
             }
         }else if(this.method === 'POST'){
-            console.log('post data from weixin--->')
+            console.log('post from weixin--->')
             if(sha !== signature){
                 this.body = 'wrong'
                 return false
