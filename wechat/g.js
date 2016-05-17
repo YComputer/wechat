@@ -49,7 +49,7 @@ Wechat.prototype.isValidAccessToken = function(data) {
     if (now < expires_in) {
         return true
     }
-    ese {
+    else {
         return false
     }
 
