@@ -44,6 +44,8 @@ module.exports = function(opts) {
             var content = yield util.parseXMLAsync(data)
             console.log('rawdata after parse--->', content)
 
+            var message =  util.formatMessage(content)
+            console.log('parse after format--->', message)
 
 
         }
