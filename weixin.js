@@ -13,6 +13,7 @@ exports.reply = function* (next){
 		} else if(message.Event === 'unsubscribe'){
 			//可以记录到数据库中查看取消订阅的用户信息
 			console.log('取消关注')
+			this.body = ''
 		}
 
 
