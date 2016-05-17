@@ -7,8 +7,10 @@ exports.readFileAsync = function(fpath, encoding){
 	return new Promise(function(reslove, reject){
 		fs.readFile(fpath, encoding, function(err, content){
 			if(err){
+				console.log('read token err---', err)
 				reject(err)
 			}else{
+				console.log('read token content---', content)
 				reslove(content)
 			}
 		})
