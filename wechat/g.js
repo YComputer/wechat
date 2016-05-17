@@ -16,7 +16,7 @@ function Wechat(opts) {
     this.getAccessToken = opts.getAccessToken
     this.saveAccessToken = opts.saveAccessToken
 
-    this.getAccessToken()
+    return this.getAccessToken()
         .then(function(data) {
             try {
                 data = JSON.parse(data)
@@ -32,7 +32,6 @@ function Wechat(opts) {
         .then(function(data) {
             that.access_token = data.access_token
             that.expires_in = data.expires_in
-
             that.saveAccessToken(data)
         })
 }
