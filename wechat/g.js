@@ -8,10 +8,11 @@ var util = require('./util')
 
 module.exports = function(opts) {
 
-    var wechat = new Wechat(opts)
+    //var wechat = new Wechat(opts)
 
     return function*(next) {
         console.log('query from weixin--->',this.query)
+        var that = this
         var token = opts.token
         var signature = this.query.signature
         var nonce = this.query.nonce
@@ -46,6 +47,24 @@ module.exports = function(opts) {
 
             var message =  util.formatMessage(content.xml)
             console.log('parse after format--->', message)
+
+            //消息回复
+            if(message.MsgType === 'event'){
+                if(message.Event === 'subscribe'){
+                    var now = new Date().getTime()
+
+                    that.status = 200
+                    that.type = 'application/xml'
+                    that.body = '<xml>'+
+                                '<ToUserName><![CDATA['+message.FromUserName+']]></ToUserName>'+
+                                '<FromUserName><![CDATA['+message.ToUserName+']]></FromUserName>'+
+                                '<CreateTime>'+now+'</CreateTime>'+
+                                '<MsgType><![CDATA[text]]></MsgType>'+
+                                '<Content><![CDATA[欢迎关注fooads]]></Content>'+
+                                '</xml>'
+                    return
+                }
+            }
 
 
         }
