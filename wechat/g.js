@@ -6,7 +6,7 @@ var request = Promise.promisify(require('request'))
 
 var prefix = 'https://api.weixin.qq.com/cgi-bin/'
 var api = {
-    accessToken : prefix+'token?grant_type=client_credential'
+    accessToken: prefix + 'token?grant_type=client_credential'
 }
 
 function Wechat(opts) {
@@ -48,8 +48,7 @@ Wechat.prototype.isValidAccessToken = function(data) {
 
     if (now < expires_in) {
         return true
-    }
-    else {
+    } else {
         return false
     }
 
@@ -62,19 +61,20 @@ Wechat.prototype.updateAccessToken = function() {
 
     console.log('tokenurl---', url)
 
-    return new Promise(function(resolve, reject){
-        request({url: url, json: true}).then(function(response){
-                console.log('token-response', response.body)
-                var data = response.body
-                var now = (new Date().getTime())
-                var expires_in = now + (data.expires_in - 20)*1000
+    return new Promise(function(resolve, reject) {
+        request({ url: url, json: true }).then(function(response) {
+            console.log('token-response', response.body)
+            var data = response.body
+            var now = (new Date().getTime())
+            var expires_in = now + (data.expires_in - 20) * 1000
 
-                data.expires_in = expires_in
-            })
-        resolve(data)
+            data.expires_in = expires_in
+            resolve(data)
+
+        })
 
     })
-    
+
 }
 
 
@@ -99,7 +99,3 @@ module.exports = function(opts) {
         }
     }
 }
-
-
-
-
