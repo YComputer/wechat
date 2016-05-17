@@ -41,17 +41,17 @@ exports.reply = function* (next){
 			reply = [{
 				title:'图文的title',
 				description:'图文的description',
-				picUrl:'http://fooads.com/dist/img/people.png',
+				picurl:'http://fooads.com/dist/img/people.png',
 				url:'http://fooads.com/'
 			},{
 				title:'图文的title',
 				description:'图文的description',
-				picUrl:'http://fooads.com/dist/img/date.png',
+				picurl:'http://fooads.com/dist/img/date.png',
 				url:'http://fooads.com/'
 			},{
 				title:'图文的title',
 				description:'图文的description',
-				picUrl:'http://fooads.com/dist/img/data.png',
+				picurl:'http://fooads.com/dist/img/data.png',
 				url:'http://fooads.com/'
 			}]
 		}
