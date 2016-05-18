@@ -60,6 +60,7 @@ exports.reply = function* (next){
 			}]
 		}else if(content === '5'){
 			var data = yield wechatApi.uploadMaterial('image', __dirname + '/2.png')
+			console.log('data---',data)
 			reply = {
 				type: 'image',
 				mediaId: data.media_id
