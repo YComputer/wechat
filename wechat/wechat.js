@@ -18,10 +18,10 @@ var api = {
         fetch: prefix + 'material/get_material?',
         uploadNews: prefix + 'material/add_news?',
         uploadNewsPic: prefix + 'media/uploadimg?',
-        del: prefix + 'media/del_material?',
-        update: prefix + 'media/update_news?',
-        count: prefix + 'media/get_materialcount?',
-        batch: prefix + 'media/batchget_material?'
+        del: prefix + 'material/del_material?',
+        update: prefix + 'material/update_news?',
+        count: prefix + 'material/get_materialcount?',
+        batch: prefix + 'material/batchget_material?'
 
     }
 }
@@ -313,7 +313,7 @@ Wechat.prototype.countMaterial = function() {
                     if (_data) {
                         resolve(_data)
                     } else {
-                        throw new Error('Delete material failed')
+                        throw new Error('Count material failed')
                     }
 
                 }).catch(function(err) {
@@ -348,7 +348,7 @@ Wechat.prototype.batchMaterial = function(options) {
                     if (_data) {
                         resolve(_data)
                     } else {
-                        throw new Error('Delete material failed')
+                        throw new Error('Batch material failed')
                     }
 
                 }).catch(function(err) {
