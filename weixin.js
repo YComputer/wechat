@@ -67,7 +67,7 @@ exports.reply = function* (next){
 			}
 			console.log(reply)
 		}else if(content === '6'){
-			var data = yield wechatApi.uploadMaterial('video', __dirname + '/1.mp4')
+			var data = yield wechatApi.uploadMaterial('video', __dirname + '/video.mov')
 			console.log('data---',data)
 			reply = {
 				type: 'video',
@@ -81,8 +81,8 @@ exports.reply = function* (next){
 			console.log('data---',data)
 			reply = {
 				type: 'music',
-				title: '回复音乐内容',
-				description: '音乐描述内容',
+				title: '回复后的音乐title',
+				description: '这是音乐描述',
 				musicUrl: 'http://www.nodejs.org',
 				thumbMediaId: data.media_id
 			}
