@@ -59,7 +59,7 @@ exports.reply = function* (next){
 				url:'http://fooads.com/'
 			}]
 		}else if(content === '5'){
-			var data = yield wechatApi.uploadMaterial('image', __dirname + '2.png')
+			var data = yield wechatApi.uploadMaterial('image', __dirname + '/2.png')
 			reply = {
 				type: 'image',
 				mediaId: data.media_id
