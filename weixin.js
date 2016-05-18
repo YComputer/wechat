@@ -77,7 +77,7 @@ exports.reply = function* (next){
 			}
 			console.log(reply)
 		}else if(content === '7'){
-			var data = yield wechatApi.uploadMaterial('music', __dirname + '/2.png')
+			var data = yield wechatApi.uploadMaterial('image', __dirname + '/2.png')
 			console.log('data---',data)
 			reply = {
 				type: 'music',
