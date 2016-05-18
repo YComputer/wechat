@@ -110,7 +110,7 @@ exports.reply = function* (next){
 				__dirname + '/2.png', {})
 			console.log('data---',data)
 
-			var meida = {
+			var media = {
 				articles:[{
 					title: 'tututu',
 					thumb_media_id: picData.media_id,
