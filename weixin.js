@@ -66,8 +66,28 @@ exports.reply = function* (next){
 				mediaId: data.media_id
 			}
 			console.log(reply)
-		}
-		
+		}else if(content === '6'){
+			var data = yield wechatApi.uploadMaterial('video', __dirname + '/1.mp4')
+			console.log('data---',data)
+			reply = {
+				type: 'video',
+				title: '回复视频内容',
+				description: '视频描述内容'
+				mediaId: data.media_id
+			}
+			console.log(reply)
+		}else if(content === '7'){
+			var data = yield wechatApi.uploadMaterial('video', __dirname + '/2.png')
+			console.log('data---',data)
+			reply = {
+				type: 'music',
+				title: '回复音乐内容',
+				description: '音乐描述内容',
+				musicUrl: '',
+				thumbMediaId: data.media_id
+			}
+			console.log(reply)
+		}		
 
 		this.body = reply
 	}
