@@ -12,8 +12,8 @@ var api = {
         upload: prefix + 'media/upload?'
     },
     permanent: {
-        upload: prefix + 'material/add_material?'
-        uploadNews: prefix + 'material/add_news?'
+        upload: prefix + 'material/add_material?',
+        uploadNews: prefix + 'material/add_news?',
         uploadNewsPic: prefix + 'media/uploadimg?'
     }
 }
