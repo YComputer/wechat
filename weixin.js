@@ -109,7 +109,6 @@ exports.reply = function*(next) {
             var picData = yield wechatApi.uploadMaterial('image',
                 __dirname + '/2.png', {})
 
-
             var media = {
                     articles: [{
                         title: 'tututu',
@@ -130,10 +129,10 @@ exports.reply = function*(next) {
                     }]
                 }
                 // 这里没有var来定义对吗？
-            data = yield wechatApi.uploadMaterial('news', media, {})
-            data = yield wechatApi.fetchMaterial(data.media_id, 'news', {})
+            var data = yield wechatApi.uploadMaterial('news', media, {})
+            var data = yield wechatApi.fetchMaterial(data.media_id, 'news', {})
 
-            console.log(data)
+            console.log('data--->',data)
 
             var items = data.news_item
             var news = []
