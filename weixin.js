@@ -108,7 +108,7 @@ exports.reply = function* (next){
 		}else if(content === '10'){
 			var picData = yield wechatApi.uploadMaterial('image', 
 				__dirname + '/2.png', {})
-			console.log('data---',data)
+
 
 			var media = {
 				articles:[{
@@ -133,7 +133,7 @@ exports.reply = function* (next){
 			items.forEach(function(item){
 				news.push({
 					title: item.title,
-					description: item.description,
+					description: item.digest,
 					picUrl: picData.url,
 					url: item.url
 				})

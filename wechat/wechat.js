@@ -179,7 +179,7 @@ Wechat.prototype.uploadMaterial = function(type, material, permanent) {
 
 Wechat.prototype.fetchMaterial = function(mediaId, type, permanent) {
     var that = this
-    var form = {}
+    //var form = {}
     var fetchUrl = api.temporary.fetch
 
     if (permanent) {
@@ -190,7 +190,7 @@ Wechat.prototype.fetchMaterial = function(mediaId, type, permanent) {
         that.fetchAccessToken()
             .then(function(data) {
                 var url = fetchUrl + 'access_token=' + data.access_token
-
+                var form = {}
                 var options = { method: 'POST', url: url, json: true }
                 if (permanent) {
                     form.media_id = mediaId,
