@@ -67,7 +67,7 @@ exports.reply = function* (next){
 			}
 			console.log(reply)
 		}else if(content === '6'){
-			var data = yield wechatApi.uploadMaterial('video', __dirname + '/video.mov')
+			var data = yield wechatApi.uploadMaterial('video', __dirname + '/video.mp4')
 			console.log('data---',data)
 			reply = {
 				type: 'video',
@@ -96,7 +96,7 @@ exports.reply = function* (next){
 			}
 			console.log(reply)
 		}else if(content === '9'){
-			var data = yield wechatApi.uploadMaterial('video', __dirname + '/video.mov', {type: 'video', description:'{"title":"nice place","introduction":"just do it"}'})
+			var data = yield wechatApi.uploadMaterial('video', __dirname + '/video.mp4', {type: 'video', description:'{"title":"nice place","introduction":"just do it"}'})
 			console.log('data---',data)
 			reply = {
 				type: 'video',
