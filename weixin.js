@@ -105,7 +105,43 @@ exports.reply = function* (next){
 				mediaId: data.media_id
 			}
 			console.log(reply)
-		}	
+		}else if(content === '10'){
+			var picData = yield wechatApi.uploadMaterial('image', 
+				__dirname + '/2.png', {})
+			console.log('data---',data)
+
+			var meida = {
+				articles:[{
+					title: 'tututu',
+					thumb_media_id: picData.media_id,
+					author: 'xiaobing',
+					digest: '摘要',
+					show_cover_pic: 1,
+					content: 'zheshineirong',
+					content_source_url: 'http://www.baidu.com'
+				}]
+			}
+
+			data = yield wechatApi.uploadMaterial('news', media, {})
+			data = yield wechatApi.fetchMaterial(data.media_id, 'news',{})
+
+			console.log(data)
+
+			var items = data.news_item
+			var news = []
+
+			items.forEach(function(item){
+				news.push({
+					title: item.title,
+					description: item.description,
+					picUrl: picData.url,
+					url: item.url
+				})
+			})
+
+			reply = news
+
+		}
 
 		this.body = reply
 	}
