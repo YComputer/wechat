@@ -67,7 +67,7 @@ exports.reply = function* (next){
 			}
 			console.log(reply)
 		}else if(content === '6'){
-			var data = yield wechatApi.uploadMaterial('video', __dirname + '/video.mp4')
+			var data = yield wechatApi.uploadMaterial('video', __dirname + '/video.mov')
 			console.log('data---',data)
 			reply = {
 				type: 'video',

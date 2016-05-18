@@ -8,7 +8,14 @@ var fs = require('fs')
 var prefix = 'https://api.weixin.qq.com/cgi-bin/'
 var api = {
     accessToken: prefix + 'token?grant_type=client_credential',
-    upload: prefix + 'media/upload?'
+    temporary: {
+        upload: prefix + 'media/upload?'
+    },
+    permanent: {
+        upload: prefix + 'material/add_material?'
+        uploadNews: prefix + 'material/add_news?'
+        uploadNewsPic: prefix + 'media/uploadimg?'
+    }
 }
 
 
@@ -95,10 +102,25 @@ Wechat.prototype.updateAccessToken = function() {
 
 }
 
-Wechat.prototype.uploadMaterial = function(type, filepath) {
+Wechat.prototype.uploadMaterial = function(type, material, permanent) {
     var that = this
-    var form = {
-        media: fs.createReadStream(filepath)
+    var form = {}
+    var uploadUrl = api.temporary.upload
+
+    if(permanent){
+        uploadUrl = api.permanent.upload
+        _.extend(form ,permanent)
+    }
+
+    if(type === 'pic'){
+        uploadUrl = api.permanent.uploadNewsPic
+    }
+
+    if(type === 'news'){
+        uploadUrl = api.permanent.uploadNews
+        form = material
+    }else{
+        form.media = fs.createReadStream(material)
     }
 
     // var appID = this.appID
@@ -108,7 +130,25 @@ Wechat.prototype.uploadMaterial = function(type, filepath) {
     return new Promise(function(resolve, reject) {
         that.fetchAccessToken()
             .then(function(data) {
-                var url = api.upload + 'access_token=' + data.access_token + '&type=' + type
+                var url = uploadUrl + 'access_token=' + data.access_token
+                if(!permanent){
+                    url += '&type=' + type
+                }else{
+                    form.access_token = data.access_token
+                }
+
+                var options ={
+                    method: 'POST',
+                    url: url,
+                    json: true
+                }
+
+                if(type === 'news'){
+                    options.body = form
+                }else{
+                    options.formData = form
+                }
+
                 request({
                     method: 'POST',
                     url: url,
