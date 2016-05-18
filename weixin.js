@@ -83,7 +83,7 @@ exports.reply = function* (next){
 				type: 'music',
 				title: '回复音乐内容',
 				description: '音乐描述内容',
-				musicUrl: '',
+				musicUrl: 'http://www.nodejs.org',
 				thumbMediaId: data.media_id
 			}
 			console.log(reply)
