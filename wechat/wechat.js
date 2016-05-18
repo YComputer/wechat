@@ -193,8 +193,8 @@ Wechat.prototype.fetchMaterial = function(mediaId, type, permanent) {
 
                 var options = { method: 'POST', url: url, json: true }
                 if (permanent) {
-                    form.media_id: mediaId,
-                        form.access_token: data.access_token
+                    form.media_id = mediaId,
+                    form.access_token = data.access_token
                     options.body = form
                 } else {
                     if (type === 'video') {
