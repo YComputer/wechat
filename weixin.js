@@ -87,13 +87,54 @@ exports.reply = function* (next){
 				thumbMediaId: data.media_id
 			}
 			console.log(reply)
-		}		
+		}else if(content === '8'){
+			var data = yield wechatApi.uploadMaterial('image', __dirname + '/2.png', {type: 'image'})
+			console.log('data---',data)
+			reply = {
+				type: 'image',
+				mediaId: data.media_id
+			}
+			console.log(reply)
+		}else if(content === '9'){
+			var data = yield wechatApi.uploadMaterial('video', __dirname + '/video.mov', {type: 'video', description:'{"title":"nice place","introduction":"just do it"}'})
+			console.log('data---',data)
+			reply = {
+				type: 'video',
+				title: '回复视频内容title',
+				description: '这是视频描述',
+				mediaId: data.media_id
+			}
+			console.log(reply)
+		}	
 
 		this.body = reply
 	}
 
 	yield next
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

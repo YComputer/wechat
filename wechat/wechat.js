@@ -2,6 +2,7 @@
 
 
 var Promise = require('bluebird')
+var _ = require('lodash')
 var request = Promise.promisify(require('request'))
 var util = require('./util')
 var fs = require('fs')
