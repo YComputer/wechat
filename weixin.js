@@ -1,5 +1,9 @@
 'use strict'
 
+var config = require('./config')
+var Wechat = require('./wechat/wechat')
+var wechatApi = new Wechat(config.wechat)
+
 exports.reply = function* (next){
 	var message = this.weixin
 
@@ -54,6 +58,13 @@ exports.reply = function* (next){
 				picurl:'http://fooads.com/dist/img/data.png',
 				url:'http://fooads.com/'
 			}]
+		}else if(content === '5'){
+			var data = yield wechatApi.uploadMaterial('image', __dirname + '2.png')
+			reply = {
+				type: 'image',
+				mediaId: data.media_id
+			}
+			console.log(reply)
 		}
 		
 

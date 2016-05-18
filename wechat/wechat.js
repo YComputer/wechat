@@ -4,9 +4,11 @@
 var Promise = require('bluebird')
 var request = Promise.promisify(require('request'))
 var util = require('./util')
+var fs = require('fs')
 var prefix = 'https://api.weixin.qq.com/cgi-bin/'
 var api = {
-    accessToken: prefix + 'token?grant_type=client_credential'
+    accessToken: prefix + 'token?grant_type=client_credential',
+    upload: prefix + 'media/upload?'
 }
 
 
@@ -16,6 +18,18 @@ function Wechat(opts) {
     this.appSecret = opts.appSecret
     this.getAccessToken = opts.getAccessToken
     this.saveAccessToken = opts.saveAccessToken
+
+    this.fetchAccessToken()
+}
+
+Wechat.prototype.fetchAccessToken = function(data) {
+    var that = this
+
+    if(this.access_token && this.expires_in){
+        if(this.isValidAccessToken(this)){
+            return Promise.resolve(this)
+        }
+    }
 
     this.getAccessToken()
         .then(function(data) {
@@ -34,6 +48,8 @@ function Wechat(opts) {
             that.access_token = data.access_token
             that.expires_in = data.expires_in
             that.saveAccessToken(data)
+
+            return Promise.resolve(data)
         })
 }
 
@@ -79,7 +95,46 @@ Wechat.prototype.updateAccessToken = function() {
 
 }
 
-Wechat.prototype.reply = function(){
+Wechat.prototype.uploadMaterial = function(type, filepath) {
+    var that = this
+    var form = {
+        media: fs.createReadStream(filepath)
+    }
+
+    // var appID = this.appID
+    // var appSecret = this.appSecret
+    // console.log('tokenurl---', url)
+
+    return new Promise(function(resolve, reject) {
+        that.fetchAccessToken()
+            .then(function(data) {
+                var url = api.upload + 'access_token=' + data.access_token + '&type=' + type
+                request({
+                    method: 'POST'
+                    url: url,
+                    formData: form,
+                    json: true
+                }).then(function(response) {
+                    console.log('token-response', response.body)
+                    var _data = response.body
+
+                    if (_data) {
+                        resolve(_data)
+                    } else {
+                        throw new Error('Upload material failed')
+                    }
+
+                }).catch(function(err) {
+                    reject(err)
+                })
+
+            })
+
+    })
+
+}
+
+Wechat.prototype.reply = function() {
     var content = this.body
     var message = this.weixin
     var xml = util.tpl(content, message)
@@ -92,10 +147,3 @@ Wechat.prototype.reply = function(){
 
 
 module.exports = Wechat
-
-
-
-
-
-
-
