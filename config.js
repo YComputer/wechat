@@ -16,7 +16,6 @@ var config = {
         	data = JSON.stringify(data)
             return util.writeFileAsync(wechat_file, data)
         }
-
     }
 }
 

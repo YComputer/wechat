@@ -1,3 +1,5 @@
+
+
 var gen = function* (n){
 	for(i = 0; i<3; i++){
 		n++

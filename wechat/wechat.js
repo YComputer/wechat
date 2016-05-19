@@ -22,7 +22,6 @@ var api = {
         update: prefix + 'material/update_news?',
         count: prefix + 'material/get_materialcount?',
         batch: prefix + 'material/batchget_material?'
-
     },
     tag: {
         create: prefix + 'tags/create?',
@@ -48,17 +47,13 @@ var api = {
     }
 }
 
-
 function Wechat(opts) {
-    var that = this
+    //var that = this
     this.appID = opts.appID
     this.appSecret = opts.appSecret
     this.getAccessToken = opts.getAccessToken
     this.saveAccessToken = opts.saveAccessToken
-
-    //var token = this.fetchAccessToken()
-
-    console.log('=-=-=-=-=-=-=-=-=-=--=',typeof token)
+    this.fetchAccessToken()
 }
 
 Wechat.prototype.fetchAccessToken = function() {
@@ -119,7 +114,6 @@ Wechat.prototype.isValidAccessToken = function(data) {
     } else {
         return false
     }
-
 }
 
 Wechat.prototype.updateAccessToken = function() {
@@ -144,7 +138,6 @@ Wechat.prototype.updateAccessToken = function() {
         })
 
     })
-
 }
 
 Wechat.prototype.uploadMaterial = function(type, material, permanent) {
@@ -211,7 +204,6 @@ Wechat.prototype.uploadMaterial = function(type, material, permanent) {
             })
 
     })
-
 }
 
 Wechat.prototype.fetchMaterial = function(mediaId, type, permanent) {
@@ -260,7 +252,6 @@ Wechat.prototype.fetchMaterial = function(mediaId, type, permanent) {
             })
 
     })
-
 }
 
 Wechat.prototype.deleteMaterial = function(mediaId) {
@@ -295,7 +286,6 @@ Wechat.prototype.deleteMaterial = function(mediaId) {
             })
     })
 }
-
 
 Wechat.prototype.updateMaterial = function(mediaId, news) {
     var that = this
@@ -749,7 +739,6 @@ Wechat.prototype.getCurrentMenu = function() {
     })
 }
 
-
 Wechat.prototype.reply = function() {
     var content = this.body
     var message = this.weixin
@@ -758,8 +747,6 @@ Wechat.prototype.reply = function() {
     this.status = 200
     this.type = 'application/xml'
     this.body = xml
-
 }
-
 
 module.exports = Wechat
