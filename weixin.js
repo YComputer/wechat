@@ -177,6 +177,17 @@ exports.reply = function*(next) {
             console.log(results)
 
             reply = '1'
+        }else if(content === '12'){
+            var tag = yield wechatApi.createTag('超级忠实用户')
+            console.log('新添加的标签为：', tag)
+
+            var tags = yield wechatApi.getTags()
+            console.log('所有的标签', tags)
+
+            var userTags = yield wechatApi.getUserTags(message.FromUserName)
+            console.log(message.FromUserName+'的标签', userTags)
+
+            reply = '标签查询完毕'
         }
 
         this.body = reply
