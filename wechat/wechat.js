@@ -34,7 +34,8 @@ var api = {
     user: {
         remark: prefix + 'user/info/updateremark?',
         getInfo: prefix + 'user/info?',
-        batchGetInfo: prefix + 'user/info/batchget?'
+        batchGetInfo: prefix + 'user/info/batchget?',
+        list: prefix + 'user/get?'
     }
 }
 
@@ -567,6 +568,32 @@ Wechat.prototype.getUsers = function(userOpenids, lang) {
     })
 }
 
+Wechat.prototype.listUsers = function(userOpenid) {
+    var that = this
+
+    return new Promise(function(resolve, reject) {
+        that.fetchAccessToken()
+            .then(function(data) {
+                var url = api.user.list + 'access_token=' + data.access_token
+
+                if(userOpenid){
+                    url += '&next_openid=' + userOpenid
+                }
+
+                request({ method: 'GET', url: url, json: true })
+                    .then(function(response) {
+                        var _data = response.body
+                        if (_data) {
+                            resolve(_data)
+                        } else {
+                            throw new Error('listUsers failed')
+                        }
+                    }).catch(function(err) {
+                        reject(err)
+                    })
+            })
+    })
+}
 
 
 Wechat.prototype.reply = function() {
