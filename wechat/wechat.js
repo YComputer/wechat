@@ -61,11 +61,13 @@ function Wechat(opts) {
     console.log('=-=-=-=-=-=-=-=-=-=--=',typeof token)
 }
 
-Wechat.prototype.fetchAccessToken = function(data) {
+Wechat.prototype.fetchAccessToken = function() {
     var that = this
 
     if (this.access_token && this.expires_in) {
         if (this.isValidAccessToken(this)) {
+    console.log('===============this==============', this)
+
             return Promise.resolve(this)
         }
     }
