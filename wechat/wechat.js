@@ -65,8 +65,10 @@ Wechat.prototype.fetchAccessToken = function() {
     var that = this
 
     if (this.access_token && this.expires_in) {
+        console.log('===============this1==============', this)
+
         if (this.isValidAccessToken(this)) {
-    console.log('===============this==============', this)
+        console.log('===============this2==============', this)
 
             return Promise.resolve(this)
         }
