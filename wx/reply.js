@@ -1,8 +1,18 @@
 'use strict'
 
-var config = require('./config')
-var Wechat = require('./wechat/wechat')
+var path = require('path')
+var config = require('../config')
+var Wechat = require('../wechat/wechat')
+var menu = require('./menu')
 var wechatApi = new Wechat(config.wechat)
+
+wechatApi.deleteMenu.then(function(){
+    return wechatApi.createMenu(menu)
+}).then(function(msg){
+    console.log('after createMenu-->',msg)
+})
+
+
 
 exports.reply = function*(next) {
     var message = this.weixin
@@ -24,9 +34,36 @@ exports.reply = function*(next) {
             this.body = '你点击了菜单：' + message.EventKey
         } else if (message.Event === 'SCAN') {
             console.log('关注后扫描二维码' + message.EventKey + ' ' + message.Ticket)
-
             this.body = '确认你已经扫描了二维码'
         } else if (message.Event === 'VIEW') {
+            this.body = '你点击了菜单中的连接：' + message.EventKey
+        }else if (message.Event === 'scancode_push') {
+            console.log(message.ScanCodeInfo.ScanType)
+            console.log(message.ScanCodeInfo.ScanResult)
+            this.body = '你点击了菜单中的连接：' + message.EventKey
+        }else if (message.Event === 'scancode_waitmsg') {  
+         console.log(message.ScanCodeInfo.ScanType)
+            console.log(message.ScanCodeInfo.ScanResult)         
+            this.body = '你点击了菜单中的连接：' + message.EventKey
+        }else if (message.Event === 'pic_sysphoto') {
+            console.log(message.PicList)
+            console.log(message.Count)
+            this.body = '你点击了菜单中的连接：' + message.EventKey
+        }else if (message.Event === 'pic_photo_or_album') {
+            console.log(message.PicList)
+            console.log(message.Count)
+            this.body = '你点击了菜单中的连接：' + message.EventKey
+        }else if (message.Event === 'pic_weixin') {
+            console.log(message.PicList)
+            console.log(message.Count)
+            this.body = '你点击了菜单中的连接：' + message.EventKey
+        }else if (message.Event === 'location_select') {
+            console.log(message.SendLocationInfo.Location_X)
+            console.log(message.SendLocationInfo.Location_Y)
+            console.log(message.SendLocationInfo.Scale)
+            console.log(message.SendLocationInfo.Label)
+            console.log(message.SendLocationInfo.Poiname)
+
             this.body = '你点击了菜单中的连接：' + message.EventKey
         }
 
@@ -59,7 +96,7 @@ exports.reply = function*(next) {
                 url: 'http://fooads.com/'
             }]
         } else if (content === '5') {
-            var data = yield wechatApi.uploadMaterial('image', __dirname + '/2.png')
+            var data = yield wechatApi.uploadMaterial('image', path.join(__dirname, '../2.png'))
             console.log('data---', data)
             reply = {
                 type: 'image',
@@ -67,7 +104,7 @@ exports.reply = function*(next) {
             }
             console.log(reply)
         } else if (content === '6') {
-            var data = yield wechatApi.uploadMaterial('video', __dirname + '/video.mp4')
+            var data = yield wechatApi.uploadMaterial('video', path.join(__dirname, '../video.mp4'))
             console.log('data---', data)
             reply = {
                 type: 'video',
@@ -77,7 +114,7 @@ exports.reply = function*(next) {
             }
             console.log(reply)
         } else if (content === '7') {
-            var data = yield wechatApi.uploadMaterial('image', __dirname + '/2.png')
+            var data = yield wechatApi.uploadMaterial('image', path.join(__dirname, '../2.png'))
             console.log('data---', data)
             reply = {
                 type: 'music',
@@ -88,7 +125,7 @@ exports.reply = function*(next) {
             }
             console.log(reply)
         } else if (content === '8') {
-            var data = yield wechatApi.uploadMaterial('image', __dirname + '/2.png', { type: 'image' })
+            var data = yield wechatApi.uploadMaterial('image', path.join(__dirname, '../2.png'), { type: 'image' })
             console.log('data---', data)
             reply = {
                 type: 'image',
@@ -96,7 +133,7 @@ exports.reply = function*(next) {
             }
             console.log(reply)
         } else if (content === '9') {
-            var data = yield wechatApi.uploadMaterial('video', __dirname + '/video.mp4', { type: 'video', description: '{"title":"nice place","introduction":"just do it"}' })
+            var data = yield wechatApi.uploadMaterial('video', path.join(__dirname, '../video.mp4'), { type: 'video', description: '{"title":"nice place","introduction":"just do it"}' })
             console.log('data---', data)
             reply = {
                 type: 'video',
@@ -106,8 +143,7 @@ exports.reply = function*(next) {
             }
             console.log(reply)
         } else if (content === '10') {
-            var picData = yield wechatApi.uploadMaterial('image',
-                __dirname + '/2.png', {})
+            var picData = yield wechatApi.uploadMaterial('image', path.join(__dirname, '../2.png'), {})
 
             var media = {
                     articles: [{
