@@ -56,7 +56,7 @@ function Wechat(opts) {
     this.fetchAccessToken()
 }
 
-Wechat.prototype.fetchAccessToken = function() {
+Wechat.prototype.fetchAccessToken = function(data) {
     var that = this
         console.log('===============this3==============', this)
 
