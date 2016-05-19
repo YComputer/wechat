@@ -698,7 +698,6 @@ Wechat.prototype.getMenu = function() {
 
 Wechat.prototype.deleteMenu = function() {
     var that = this
-
     return new Promise(function(resolve, reject) {
         that.fetchAccessToken()
             .then(function(data) {
@@ -706,6 +705,7 @@ Wechat.prototype.deleteMenu = function() {
 
                 request({ method: 'GET', url: url, json: true })
                     .then(function(response) {
+                        conosle.log('delete menu success!!!')
                         var _data = response.body
                         if (_data) {
                             resolve(_data)
