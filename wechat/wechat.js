@@ -89,7 +89,7 @@ Wechat.prototype.fetchAccessToken = function(data) {
             }
         })
         .then(function(data) {
-            console.log('===============here7==============')
+            console.log('===============here7==============', JSON.stringify(data))
             that.access_token = data.access_token
             that.expires_in = data.expires_in
             that.saveAccessToken(data)
