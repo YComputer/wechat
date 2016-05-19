@@ -174,7 +174,7 @@ exports.reply = function*(next) {
                     count: 10
                 })
             ]
-            console.log(results)
+            console.log(JSON.stringify(results))
 
             reply = '1'
         } else if (content === '12') {
