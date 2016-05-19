@@ -32,7 +32,9 @@ var api = {
         delete: prefix + 'tags/delete?'
     },
     user: {
-        remark: prefix + 'user/info/updateremark?'
+        remark: prefix + 'user/info/updateremark?',
+        getInfo: prefix + 'user/info?',
+        batchGetInfo: prefix + 'user/info/batchget?'
     }
 }
 
@@ -522,6 +524,41 @@ Wechat.prototype.remarkUser = function(userOpenid, remark) {
                             resolve(_data)
                         } else {
                             throw new Error('Remark user  failed')
+                        }
+                    }).catch(function(err) {
+                        reject(err)
+                    })
+            })
+    })
+}
+
+Wechat.prototype.getUsers = function(userOpenids, lang) {
+    var that = this
+    lang = lang || 'zh_CN'
+    return new Promise(function(resolve, reject) {
+        that.fetchAccessToken()
+            .then(function(data) {
+                var options = {
+                    json: true
+                }
+                if (_.isArray(userOpenids)) {
+                    options.url = api.user.batchGetInfo + 'access_token=' + data.access_token
+                    options.body = {
+                        user_list: userOpenids
+                    }
+                    options.method = 'POST'
+                } else {
+                    options.url = api.user.getInfo + 'access_token=' + data.access_token +
+                        '&openid=' + userOpenids + '&lang=' + lang
+                }
+
+                request(options)
+                    .then(function(response) {
+                        var _data = response.body
+                        if (_data) {
+                            resolve(_data)
+                        } else {
+                            throw new Error('getUsers failed')
                         }
                     }).catch(function(err) {
                         reject(err)

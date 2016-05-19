@@ -132,7 +132,7 @@ exports.reply = function*(next) {
             var data = yield wechatApi.uploadMaterial('news', media, {})
             var data = yield wechatApi.fetchMaterial(data.media_id, 'news', {})
 
-            console.log('data--->',data)
+            console.log('data--->', data)
 
             var items = data.news_item
             var news = []
@@ -177,7 +177,7 @@ exports.reply = function*(next) {
             console.log(results)
 
             reply = '1'
-        }else if(content === '12'){
+        } else if (content === '12') {
             var tag = yield wechatApi.createTag('非常忠实用户')
             console.log('新添加的标签为：', tag)
 
@@ -185,9 +185,22 @@ exports.reply = function*(next) {
             console.log('所有的标签', tags)
 
             var userTags = yield wechatApi.getUserTags(message.FromUserName)
-            console.log(message.FromUserName+'的标签', userTags)
+            console.log(message.FromUserName + '的标签为：', userTags)
 
             reply = '标签查询完毕'
+        } else if () {
+            var user = yield wechatApi.getUsers(message.FromUserName)
+            console.log('users--', user)
+
+            var openIds = [{
+                openid: message.FromUserName,
+                lang: 'en'
+            }]
+
+            var users = yield wechatApi.getUsers(openIds)
+            console.log('users--', user)
+
+            reply.JSON.stringify(user)
         }
 
         this.body = reply
