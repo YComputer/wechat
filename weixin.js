@@ -198,9 +198,9 @@ exports.reply = function*(next) {
             }]
 
             var users = yield wechatApi.getUsers(openIds)
-            console.log('users--', user)
+            console.log('users--', users)
 
-            reply.JSON.stringify(user)
+            reply = JSON.stringify(user)
         }
 
         this.body = reply
