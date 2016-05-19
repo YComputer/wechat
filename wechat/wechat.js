@@ -30,6 +30,9 @@ var api = {
         getUserTags: prefix + 'tags/getidlist?',
         update: prefix + 'tags/update?',
         delete: prefix + 'tags/delete?'
+    },
+    user: {
+        remark: prefix + 'user/info/updateremark?'
     }
 }
 
@@ -422,7 +425,7 @@ Wechat.prototype.getUserTags = function(userOpenid) {
                 var url = api.tag.getUserTags + 'access_token=' + data.access_token
 
                 var options = {
-                    userOpenid: userOpenid
+                    openid: userOpenid
                 }
 
                 request({ method: 'POST', url: url, body: options, json: true })
@@ -491,6 +494,34 @@ Wechat.prototype.deleteTag = function(id) {
                             resolve(_data)
                         } else {
                             throw new Error('Delete Tag failed')
+                        }
+                    }).catch(function(err) {
+                        reject(err)
+                    })
+            })
+    })
+}
+
+Wechat.prototype.remarkUser = function(userOpenid, remark) {
+    var that = this
+
+    return new Promise(function(resolve, reject) {
+        that.fetchAccessToken()
+            .then(function(data) {
+                var url = api.user.remark + 'access_token=' + data.access_token
+
+                var options = {
+                    openid: userOpenid,
+                    remark: remark
+                }
+
+                request({ method: 'POST', url: url, body: options, json: true })
+                    .then(function(response) {
+                        var _data = response.body
+                        if (_data) {
+                            resolve(_data)
+                        } else {
+                            throw new Error('Remark user  failed')
                         }
                     }).catch(function(err) {
                         reject(err)
