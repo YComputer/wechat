@@ -27,7 +27,7 @@ var api = {
     tag: {
         create: prefix + 'tags/create?',
         get: prefix + 'tags/get?',
-        getUserTags: prefix + 'tags/getidlist?'
+        getUserTags: prefix + 'tags/getidlist?',
         update: prefix + 'tags/update?',
         delete: prefix + 'tags/delete?'
     }
