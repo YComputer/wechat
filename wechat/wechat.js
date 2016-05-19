@@ -68,20 +68,28 @@ Wechat.prototype.fetchAccessToken = function(data) {
         }
     }
 
+    conosle.log('===============here1==============')
+
     this.getAccessToken()
         .then(function(data) {
+            conosle.log('===============here2==============')
             try {
+                conosle.log('===============here3==============')
                 data = JSON.parse(data)
             } catch (e) {
+                conosle.log('===============here4==============')
                 return that.updateAccessToken()
             }
             if (that.isValidAccessToken(data)) {
+                conosle.log('===============here5==============')
                 return Promise.resolve(data)
             } else {
+                conosle.log('===============here6==============')
                 return that.updateAccessToken()
             }
         })
         .then(function(data) {
+            conosle.log('===============here7==============')
             that.access_token = data.access_token
             that.expires_in = data.expires_in
             that.saveAccessToken(data)
