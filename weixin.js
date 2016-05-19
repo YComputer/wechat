@@ -188,7 +188,7 @@ exports.reply = function*(next) {
             console.log(message.FromUserName + '的标签为：', userTags)
 
             reply = '标签查询完毕'
-        } else if () {
+        } else if (content === '13') {
             var user = yield wechatApi.getUsers(message.FromUserName)
             console.log('users--', user)
 
