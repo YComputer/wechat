@@ -149,6 +149,7 @@ exports.reply = function*(next) {
             reply = news
 
         } else if (content === '11') {
+            // 这个接口调用好像有问题总是报 reach max api daily quota limit
             var counts = yield wechatApi.countMaterial()
 
             console.log(JSON.stringify(counts))
@@ -211,7 +212,14 @@ exports.reply = function*(next) {
             var mpnews = {
                 media_id: 'RnvccWa8PMqXRUuLNZcAThqaGLi_SZdYFqpWne6zD58'
             }
-            var msgData = yield wechatApi.sendByTag('mpnews',media_id, 100)
+
+            var text = {
+                'content': 'Hello ......'
+            }
+
+            //var msgData = yield wechatApi.sendByTag('mpnews',media_id, 100)
+            var msgData = yield wechatApi.sendByTag('text',text, 100)
+
             console.log(msgData)
             reply = 'Yeah'
         }else if (content === '16') {
