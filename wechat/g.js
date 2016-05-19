@@ -9,7 +9,7 @@ var util = require('./util')
 module.exports = function(opts, handler) {
 
     // 这里注释掉和不注释掉的区别在哪里？
-    var wechat = new Wechat(opts)
+    //var wechat = new Wechat(opts)
 
     return function* (next) {
         console.log('query from weixin--->',this.query)
@@ -71,7 +71,7 @@ module.exports = function(opts, handler) {
 
             yield handler.call(this, next)
 
-            wechat.reply.call(this)
+            //wechat.reply.call(this)
 
 
         }
