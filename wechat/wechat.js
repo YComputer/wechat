@@ -83,7 +83,7 @@ Wechat.prototype.fetchAccessToken = function() {
                 return that.updateAccessToken()
             }
 
-            conosle.log('data-----', data)
+            console.log('data-----', data)
 
             if (that.isValidAccessToken(data)) {
                 console.log('===============here5==============')
