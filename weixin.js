@@ -208,6 +208,17 @@ exports.reply = function*(next) {
             reply = userList.total
 
         } else if (content === '15') {
+            var mpnews = {
+                media_id: 'RnvccWa8PMqXRUuLNZcAThqaGLi_SZdYFqpWne6zD58'
+            }
+            var msgData = yield wechatApi.sendByTag('mpnews',media_id, 100)
+            console.log(msgData)
+            reply = 'Yeah'
+        }else if (content === '16') {
+
+        }else if (content === '17') {
+
+        }else if (content === '18') {
 
         }
 

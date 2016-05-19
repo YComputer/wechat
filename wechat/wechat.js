@@ -36,6 +36,9 @@ var api = {
         getInfo: prefix + 'user/info?',
         batchGetInfo: prefix + 'user/info/batchget?',
         list: prefix + 'user/get?'
+    },
+    mass: {
+        tag: prefix + 'message/mass/sendall?'
     }
 }
 
@@ -594,6 +597,45 @@ Wechat.prototype.listUsers = function(userOpenid) {
             })
     })
 }
+
+Wechat.prototype.sendByTag = function(type, message, tagId) {
+    var that = this
+    var msg = {
+        filter: {},
+        msgtype: type
+    }
+
+    msg[type] = message
+
+    if(!tagId){
+        msg.filter.is_to_all = true
+    }else{
+        msg.filter = {
+            is_to_all: false,
+            tag_id: tagId
+        }
+    }
+
+    return new Promise(function(resolve, reject) {
+        that.fetchAccessToken()
+            .then(function(data) {
+                var url = api.mass.tag + 'access_token=' + data.access_token
+
+                request({ method: 'POST', url: url, body: msg, json: true })
+                    .then(function(response) {
+                        var _data = response.body
+                        if (_data) {
+                            resolve(_data)
+                        } else {
+                            throw new Error('sendByTag failed')
+                        }
+                    }).catch(function(err) {
+                        reject(err)
+                    })
+            })
+    })
+}
+
 
 
 Wechat.prototype.reply = function() {
