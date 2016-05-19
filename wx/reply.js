@@ -6,9 +6,10 @@ var Wechat = require('../wechat/wechat')
 var menu = require('./menu')
 var wechatApi = new Wechat(config.wechat)
 
-// wechatApi.deleteMenu().then(function(data){
-//     return wechatApi.createMenu(menu)
-// }).then(function(msg){
+wechatApi.deleteMenu().then(function(data){
+    //return wechatApi.createMenu(menu)
+})
+// .then(function(msg){
 //     console.log('after createMenu-->',msg)
 // })
 
