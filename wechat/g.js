@@ -40,13 +40,13 @@ module.exports = function(opts, handler) {
                     this.method, this.url)
 
                 var data = yield getRawBody(this.req, { length: this.length, limit: '1mb', encoding: this.charset})
-                console.log('raw data post from weixin server', data.toString())
+                console.log('raw data post from weixin server\n', data.toString())
 
                 var content = yield util.parseXMLAsync(data)
-                    //console.log('rawdata after parse--->', content)
+                console.log('raw data post from weixin server after parse\n', content)
 
                 var message = util.formatMessage(content.xml)
-                    //console.log('parse after format--->', message)
+                console.log('parse after format--->', message)
 
                 this.weixin = message
 
