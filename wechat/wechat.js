@@ -59,31 +59,31 @@ function Wechat(opts) {
 Wechat.prototype.fetchAccessToken = function() {
     var that = this
 
-    console.log('===============here4==============')
+    //console.log('===============here4==============')
 
     this.getAccessToken()
         .then(function(data) {
-            console.log('===============here5==============')
+            //console.log('===============here5==============')
             try {
-                console.log('===============here6==============')
+                // console.log('===============here6==============')
                 data = JSON.parse(data)
             } catch (e) {
-                console.log('===============here7==============')
+                // console.log('===============here7==============')
                 return that.updateAccessToken()
             }
 
-            console.log('data-----', data.access_token)
+            // console.log('data-----', data.access_token)
 
             if (that.isValidAccessToken(data)) {
-                console.log('===============here8==============')
+                // console.log('===============here8==============')
                 return Promise.resolve(data)
             } else {
-                console.log('===============here9==============')
+                // console.log('===============here9==============')
                 return that.updateAccessToken()
             }
         })
         .then(function(data) {
-            console.log('===============here10==============', JSON.stringify(data))
+            // console.log('===============here10==============', JSON.stringify(data))
             that.access_token = data.access_token
             that.expires_in = data.expires_in
             that.saveAccessToken(data)

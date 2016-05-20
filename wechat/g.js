@@ -7,11 +7,12 @@ var util = require('./util')
 
 
 module.exports = function(opts, handler) {
-    // 这里注释掉和不注释掉的区别在哪里？
+    // 初始化 微信回复 对象
     var wechat = new Wechat(opts)
+    console.log('init wechat instance')
 
     return function*(next) {
-        console.log('request info from weixin--->', this.query)
+        console.log('request info from weixin-> method is %s dat is %s', this.method ,this.query)
         var that = this
         var token = opts.token
         var signature = this.query.signature
@@ -22,14 +23,14 @@ module.exports = function(opts, handler) {
         var sha = sha1(str)
 
         if (this.method === 'GET') {
-            console.log('get from weixin--->')
+           // console.log('get from weixin--->')
             if (sha === signature) {
                 this.body = echostr + ''
             } else {
                 this.body = 'wrong'
             }
         } else if (this.method === 'POST') {
-            console.log('post from weixin rawdata--->')
+            //console.log('post from weixin rawdata--->')
             if (sha !== signature) {
                 this.body = 'wrong'
                 return false
@@ -40,13 +41,13 @@ module.exports = function(opts, handler) {
                 limit: '1mb',
                 encoding: this.charset
             })
-            console.log(data.toString())
+           // console.log(data.toString())
 
             var content = yield util.parseXMLAsync(data)
-            console.log('rawdata after parse--->', content)
+            //console.log('rawdata after parse--->', content)
 
             var message = util.formatMessage(content.xml)
-            console.log('parse after format--->', message)
+            //console.log('parse after format--->', message)
 
             this.weixin = message
 
