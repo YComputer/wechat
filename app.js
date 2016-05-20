@@ -8,7 +8,7 @@ var app = new koa()
 
 
 
-// app logger
+// logger middle ware
 app.use(function *(next){
   var start = new Date;
   yield next;
@@ -16,8 +16,9 @@ app.use(function *(next){
   console.log('%s %s - %s', this.method, this.url, ms);
 });
 
-
+// 微信通信 middle ware
 app.use(wechat(config.wechat, reply.reply))
 
 app.listen(80)
+
 console.log('listening: 80')
