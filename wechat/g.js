@@ -39,7 +39,6 @@ module.exports = function(opts, handler) {
                     'request from weixin server↑↑↑↑',
                     this.method, this.url)
 
-                console.log(this.req)
                 var data = yield getRawBody(this.req, { length: this.length, limit: '1mb', encoding: this.charset})
                 console.log('raw data post from weixin server', data.toString())
 
