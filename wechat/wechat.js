@@ -58,17 +58,6 @@ function Wechat(opts) {
 
 Wechat.prototype.fetchAccessToken = function() {
     var that = this
-        // console.log('===============this1==============', this)
-
-    // if (this.access_token && this.expires_in) {
-    //     console.log('===============this2==============', this)
-
-    //     if (this.isValidAccessToken(this)) {
-    //     console.log('===============this3==============', this)
-
-    //         return Promise.resolve(this)
-    //     }
-    // }
 
     console.log('===============here4==============')
 

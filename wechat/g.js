@@ -7,12 +7,11 @@ var util = require('./util')
 
 
 module.exports = function(opts, handler) {
-
     // 这里注释掉和不注释掉的区别在哪里？
     //var wechat = new Wechat(opts)
 
-    return function* (next) {
-        console.log('query from weixin--->',this.query)
+    return function*(next) {
+        console.log('request info from weixin--->', this.query)
         var that = this
         var token = opts.token
         var signature = this.query.signature
@@ -29,9 +28,9 @@ module.exports = function(opts, handler) {
             } else {
                 this.body = 'wrong'
             }
-        }else if(this.method === 'POST'){
+        } else if (this.method === 'POST') {
             console.log('post from weixin rawdata--->')
-            if(sha !== signature){
+            if (sha !== signature) {
                 this.body = 'wrong'
                 return false
             }
@@ -46,35 +45,15 @@ module.exports = function(opts, handler) {
             var content = yield util.parseXMLAsync(data)
             console.log('rawdata after parse--->', content)
 
-            var message =  util.formatMessage(content.xml)
+            var message = util.formatMessage(content.xml)
             console.log('parse after format--->', message)
-
-            //消息回复
-            // if(message.MsgType === 'event'){
-            //     if(message.Event === 'subscribe'){
-            //         var now = new Date().getTime()
-
-            //         that.status = 200
-            //         that.type = 'application/xml'
-            //         that.body = '<xml>'+
-            //                     '<ToUserName><![CDATA['+message.FromUserName+']]></ToUserName>'+
-            //                     '<FromUserName><![CDATA['+message.ToUserName+']]></FromUserName>'+
-            //                     '<CreateTime>'+now+'</CreateTime>'+
-            //                     '<MsgType><![CDATA[text]]></MsgType>'+
-            //                     '<Content><![CDATA[欢迎关注fooads]]></Content>'+
-            //                     '</xml>'
-            //         return
-            //     }
-            // }
 
             this.weixin = message
 
+            // 消息返回以后，把指针指向业务逻辑，跳出去到handler中去处理业务逻辑。
             yield handler.call(this, next)
-
-            //wechat.reply.call(this)
-
-
+                // 处理完业务逻辑后，返回到koa框架中，再把指针指向消息回复。
+            wechat.reply.call(this)
         }
-
     }
 }
