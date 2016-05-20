@@ -50,7 +50,10 @@ module.exports = function(opts, handler) {
 
                 // 将解析后的数据添加到当前引用的属性weixin中
                 console.log('添加前的this', this)
+                console.log('添加前的this', this.weixin)
+
                 this.weixin = message
+                console.log('添加后的this', this.weixin)
                 console.log('添加后的this', this)
 
                 // 消息返回以后，把指针指向业务逻辑，跳出去到handler中去处理业务逻辑。
