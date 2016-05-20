@@ -39,11 +39,8 @@ module.exports = function(opts, handler) {
                     'request from weixin server↑↑↑↑',
                     this.method, this.url, JSON.stringify(this.query))
 
-                var data = yield getRawBody(this.req, {
-                        length: this.length,
-                        limit: '1mb',
-                        encoding: this.charset
-                    })
+                console.log(this.req)
+                var data = yield getRawBody(this.req, { length: this.length, limit: '1mb', encoding: this.charset})
                     // console.log(data.toString())
 
                 var content = yield util.parseXMLAsync(data)
