@@ -8,7 +8,7 @@ var util = require('./util')
 
 module.exports = function(opts, reply) {
     // 初始化 微信回复 对象
-    //var wechat = new Wechat(opts)
+    var wechat = new Wechat(opts)
     console.log('init wechat instance 会初始化好多条件，这里的初始化流程还不是最优的')
 
     return function*(next) {
@@ -57,9 +57,9 @@ module.exports = function(opts, reply) {
                 //console.log('添加后的this', this)
 
                 // 消息返回以后，把指针指向业务逻辑，跳出去到reply中去处理业务逻辑。
-                yield reply.call(this, next)
+                //yield reply.call(this, next)
                 // 处理完业务逻辑后，返回到koa框架中，再把指针指向消息回复。
-                //wechat.reply.call(this)
+                wechat.reply.call(this)
             }
 
 
