@@ -9,7 +9,7 @@ var util = require('./util')
 module.exports = function(opts, handler) {
     // 初始化 微信回复 对象
     var wechat = new Wechat(opts)
-    console.log('init wechat instance')
+    console.log('init wechat instance 会初始化好多条件，这里的初始化流程还不是最优的')
 
     return function*(next) {
         console.log('request info from weixin-> method is %s dat is %s', this.method ,this.query)

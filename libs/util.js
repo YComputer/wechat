@@ -10,7 +10,8 @@ exports.readFileAsync = function(fpath, encoding){
 				console.log('read token err---', err)
 				reject(err)
 			}else{
-				console.log('read token content---', content)
+				// 当前的代码有问题，会调用两次renad token。还没有查清楚怎么回事。
+				// console.log('read token content---', content)
 				reslove(content)
 			}
 		})
