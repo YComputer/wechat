@@ -35,13 +35,13 @@ module.exports = function(opts, handler) {
                 this.body = '来自微信server以外的POST请求'
             } else {
                 console.log('request from weixin server↓↓↓↓\n' +
-                    ' method is %s \n url is %s \n data is %s \n' +
+                    ' method is %s \n url is %s' +
                     'request from weixin server↑↑↑↑',
-                    this.method, this.url, JSON.stringify(this.query))
+                    this.method, this.url
 
                 console.log(this.req)
                 var data = yield getRawBody(this.req, { length: this.length, limit: '1mb', encoding: this.charset})
-                    // console.log(data.toString())
+                console.log('raw data post from weixin server', data.toString())
 
                 var content = yield util.parseXMLAsync(data)
                     //console.log('rawdata after parse--->', content)
