@@ -12,7 +12,10 @@ module.exports = function(opts, handler) {
     console.log('init wechat instance 会初始化好多条件，这里的初始化流程还不是最优的')
 
     return function*(next) {
-        console.log('request from weixin server↓↓↓↓ \n method is %s \n url is %s \n data is %s \n request from weixin server↑↑↑↑', this.method, this.url, JSON.stringify(this.query))
+        console.log('request from weixin server↓↓↓↓\n'+
+                    ' method is %s \n url is %s \n data is %s \n'+
+                    'request from weixin server↑↑↑↑',
+                    this.method, this.url, JSON.stringify(this.query))
         var that = this
         var token = opts.token
         var signature = this.query.signature
