@@ -1,7 +1,7 @@
 'use strict'
 
 var koa = require('koa')
-var wechat = require('./wechat/g')
+var g = require('./wechat/g')
 var config = require('./config')
 var reply = require('./wx/reply')
 var app = new koa()
@@ -17,7 +17,7 @@ app.use(function *(next){
 });
 
 // 微信通信 middle ware
-app.use(wechat(config.wechat, reply.reply))
+app.use(g(config.wechat, reply.reply))
 
 app.listen(80)
 

@@ -6,9 +6,9 @@ var Wechat = require('./wechat')
 var util = require('./util')
 
 
-module.exports = function(opts, handler) {
+module.exports = function(opts, reply) {
     // 初始化 微信回复 对象
-    var wechat = new Wechat(opts)
+    //var wechat = new Wechat(opts)
     console.log('init wechat instance 会初始化好多条件，这里的初始化流程还不是最优的')
 
     return function*(next) {
@@ -49,17 +49,17 @@ module.exports = function(opts, handler) {
                 console.log('json object to plain json object\n', message)
 
                 // 将解析后的数据添加到当前引用的属性weixin中
-                console.log('添加前的this', this)
-                console.log('添加前的this', this.weixin)
-
+                //console.log('添加前的this', this)
+                //console.log('添加前的this', this.weixin)
                 this.weixin = message
-                console.log('添加后的this', this.weixin)
-                console.log('添加后的this', this)
+                //为什么添加后打印this.weixin可以打印出对象，但是打印this在this中却看不到weixin这个属性？？？？
+                //console.log('添加后的this', this.weixin)
+                //console.log('添加后的this', this)
 
-                // 消息返回以后，把指针指向业务逻辑，跳出去到handler中去处理业务逻辑。
-                yield handler.call(this, next)
+                // 消息返回以后，把指针指向业务逻辑，跳出去到reply中去处理业务逻辑。
+                yield reply.call(this, next)
                 // 处理完业务逻辑后，返回到koa框架中，再把指针指向消息回复。
-                wechat.reply.call(this)
+                //wechat.reply.call(this)
             }
 
 
