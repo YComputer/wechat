@@ -43,16 +43,19 @@ module.exports = function(opts, handler) {
                 console.log('raw data post from weixin server\n', data.toString())
 
                 var content = yield util.parseXMLAsync(data)
-                console.log('raw data post from weixin server after parse\n', content)
+                console.log('raw data to json object\n', content)
 
                 var message = util.formatMessage(content.xml)
-                console.log('parse after format--->', message)
+                console.log('json object to plain json object\n', message)
 
+                // 将解析后的数据添加到当前引用的属性weixin中
+                console.log('添加前的this', this)
                 this.weixin = message
+                console.log('添加后的this', this)
 
                 // 消息返回以后，把指针指向业务逻辑，跳出去到handler中去处理业务逻辑。
                 yield handler.call(this, next)
-                    // 处理完业务逻辑后，返回到koa框架中，再把指针指向消息回复。
+                // 处理完业务逻辑后，返回到koa框架中，再把指针指向消息回复。
                 wechat.reply.call(this)
             }
 
