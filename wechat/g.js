@@ -12,11 +12,7 @@ module.exports = function(opts, handler) {
     console.log('init wechat instance 会初始化好多条件，这里的初始化流程还不是最优的')
 
     return function*(next) {
-        console.log('request from weixin server↓↓↓↓\n' +
-                ' method is %s \n url is %s \n data is %s \n' +
-                'request from weixin server↑↑↑↑',
-                this.method, this.url, JSON.stringify(this.query))
-            // 这里其实应该单独配置一个path用来做微信认证。而不是像现在这样混在整个应用中。
+        // 这里其实应该单独配置一个path用来做微信认证。而不是像现在这样混在整个应用中。
         var token = opts.token
         var signature = this.query.signature
         var nonce = this.query.nonce
@@ -26,6 +22,10 @@ module.exports = function(opts, handler) {
         var sha = sha1(str)
         if (this.method === 'GET') {
             if (sha === signature) {
+                console.log('request from weixin server↓↓↓↓\n' +
+                    ' method is %s \n url is %s \n data is %s \n' +
+                    'request from weixin server↑↑↑↑',
+                    this.method, this.url, JSON.stringify(this.query))
                 this.body = echostr + ''
             } else {
                 this.body = '来自微信认证以外的GET请求'
@@ -34,6 +34,11 @@ module.exports = function(opts, handler) {
             if (sha !== signature) {
                 this.body = '来自微信server以外的POST请求'
             } else {
+                console.log('request from weixin server↓↓↓↓\n' +
+                    ' method is %s \n url is %s \n data is %s \n' +
+                    'request from weixin server↑↑↑↑',
+                    this.method, this.url, JSON.stringify(this.query))
+
                 var data = yield getRawBody(this.req, {
                         length: this.length,
                         limit: '1mb',
