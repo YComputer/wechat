@@ -37,7 +37,7 @@ module.exports = function(opts, handler) {
                 console.log('request from weixin server↓↓↓↓\n' +
                     ' method is %s \n url is %s' +
                     'request from weixin server↑↑↑↑',
-                    this.method, this.url
+                    this.method, this.url)
 
                 console.log(this.req)
                 var data = yield getRawBody(this.req, { length: this.length, limit: '1mb', encoding: this.charset})
