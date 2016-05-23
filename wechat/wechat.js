@@ -58,7 +58,6 @@ function Wechat(opts) {
 
 Wechat.prototype.fetchAccessToken = function() {
     var that = this
-
     this.getAccessToken()
         .then(function(data) {
             try {
@@ -148,7 +147,6 @@ Wechat.prototype.uploadMaterial = function(type, material, permanent) {
 
     return new Promise(function(resolve, reject) {
     //var that = this
-
         that.fetchAccessToken()
             .then(function(data) {
                 var url = uploadUrl + 'access_token=' + data.access_token
