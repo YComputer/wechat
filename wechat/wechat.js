@@ -48,51 +48,35 @@ var api = {
 }
 
 function Wechat(opts) {
-    var that = this
+    //var that = this
     this.appID = opts.appID
     this.appSecret = opts.appSecret
     this.getAccessToken = opts.getAccessToken
     this.saveAccessToken = opts.saveAccessToken
-    var temp = this.fetchAccessToken()
-    console.log('init constorator=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof temp)
+    this.fetchAccessToken()
 }
 
 Wechat.prototype.fetchAccessToken = function() {
     var that = this
 
-    //console.log('===============here4==============')
-
     this.getAccessToken()
         .then(function(data) {
-            //console.log('===============here5==============')
             try {
-                // console.log('===============here6==============')
                 data = JSON.parse(data)
             } catch (e) {
-                // console.log('===============here7==============')
-                console.log('73-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof that.updateAccessToken())
                 return that.updateAccessToken()
             }
 
-            // console.log('data-----', data.access_token)
-
             if (that.isValidAccessToken(data)) {
-                // console.log('===============here8==============')
-                console.log('81-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof Promise.resolve(data))
                 return Promise.resolve(data)
             } else {
-                // console.log('===============here9==============')
-                console.log('85-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof that.updateAccessToken())
                 return that.updateAccessToken()
             }
         })
         .then(function(data) {
-            // console.log('===============here10==============', JSON.stringify(data))
             that.access_token = data.access_token
             that.expires_in = data.expires_in
             that.saveAccessToken(data)
-                console.log('94-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof Promise.resolve(data))
-
             return Promise.resolve(data)
         })
 }
@@ -163,7 +147,8 @@ Wechat.prototype.uploadMaterial = function(type, material, permanent) {
     // console.log('tokenurl---', url)
 
     return new Promise(function(resolve, reject) {
-        console.log('access_token returned is ==============', that.fetchAccessToken())
+    var that = this
+
         that.fetchAccessToken()
             .then(function(data) {
                 var url = uploadUrl + 'access_token=' + data.access_token
@@ -206,7 +191,6 @@ Wechat.prototype.uploadMaterial = function(type, material, permanent) {
 
 Wechat.prototype.fetchMaterial = function(mediaId, type, permanent) {
     var that = this
-        //var form = {}
     var fetchUrl = api.temporary.fetch
 
     if (permanent) {
