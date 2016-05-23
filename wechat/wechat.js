@@ -54,7 +54,7 @@ function Wechat(opts) {
     this.getAccessToken = opts.getAccessToken
     this.saveAccessToken = opts.saveAccessToken
     var temp = this.fetchAccessToken()
-    console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof temp)
+    //console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof temp)
 }
 
 Wechat.prototype.fetchAccessToken = function() {
@@ -70,6 +70,7 @@ Wechat.prototype.fetchAccessToken = function() {
                 data = JSON.parse(data)
             } catch (e) {
                 // console.log('===============here7==============')
+                console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof that.updateAccessToken())
                 return that.updateAccessToken()
             }
 
