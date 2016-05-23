@@ -6,11 +6,11 @@ var Wechat = require('../wechat/wechat')
 var menu = require('./menu')
 var wechatApi = new Wechat(config.wechat)
 
-wechatApi.deleteMenu().then(function(data){
-    return wechatApi.createMenu(menu)
-}).then(function(msg){
-    console.log('after createMenu-->',msg)
-})
+// wechatApi.deleteMenu().then(function(data){
+//     return wechatApi.createMenu(menu)
+// }).then(function(msg){
+//     console.log('after createMenu-->',msg)
+// })
 
 
 exports.reply = function*(next) {
@@ -18,9 +18,18 @@ exports.reply = function*(next) {
 
     if (message.MsgType === 'event') {
         if (message.Event === 'subscribe') {
+
+wechatApi.deleteMenu().then(function(data){
+    return wechatApi.createMenu(menu)
+}).then(function(msg){
+    console.log('after createMenu-->',msg)
+})
+            
             if (message.EventKey) {
                 console.log('扫二维码进来：' + message.EventKey + ' ' + message.ticket)
             }
+
+
 
             this.body = '欢迎订阅 fooads\r\n' + ' 消息ID：' + message.MsgId + '请输入1查询订单，2查询余额，3进行充值'
         } else if (message.Event === 'unsubscribe') {
