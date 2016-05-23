@@ -13,7 +13,6 @@ var wechatApi = new Wechat(config.wechat)
 // })
 
 
-
 exports.reply = function*(next) {
     var message = this.weixin
 
@@ -66,8 +65,6 @@ exports.reply = function*(next) {
 
             this.body = '你点击了菜单中的连接：' + message.EventKey
         }
-
-
     } else if (message.MsgType === 'text') {
         var content = message.Content
         var reply = '你说的 ' + message.Content + ' 太复杂了'

@@ -16,6 +16,8 @@ app.use(function *(next){
   console.log('%s %s - %s', this.method, this.url, ms);
 });
 
+
+
 // 微信通信 middle ware
 app.use(g(config.wechat, reply.reply))
 

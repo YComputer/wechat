@@ -710,7 +710,6 @@ Wechat.prototype.deleteMenu = function() {
 
 Wechat.prototype.getCurrentMenu = function() {
     var that = this
-
     return new Promise(function(resolve, reject) {
         that.fetchAccessToken()
             .then(function(data) {
@@ -731,7 +730,7 @@ Wechat.prototype.getCurrentMenu = function() {
     })
 }
 
-Wechat.prototype.reply = function() {
+Wechat.prototype.send = function() {
     var content = this.body
     var message = this.weixin
     var xml = util.tpl(content, message)

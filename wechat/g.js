@@ -59,7 +59,7 @@ module.exports = function(opts, reply) {
                 // 消息返回以后，把指针指向业务逻辑，跳出去到reply中去处理业务逻辑。
                 yield reply.call(this, next)
                 // 处理完业务逻辑后，返回到koa框架中，再把指针指向消息回复。
-                wechat.reply.call(this)
+                wechat.send.call(this)
             }
 
 
