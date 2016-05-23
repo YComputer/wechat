@@ -64,7 +64,7 @@ Wechat.prototype.fetchAccessToken = function() {
             return Promise.resolve(this)
         }
     }
-    
+
     this.getAccessToken()
         .then(function(data) {
             try {
@@ -683,6 +683,9 @@ Wechat.prototype.getMenu = function() {
 
 Wechat.prototype.deleteMenu = function() {
     var that = this
+    console.log('============',that)
+    console.log(that.fetchAccessToken())
+
     return new Promise(function(resolve, reject) {
         that.fetchAccessToken()
             .then(function(data) {
