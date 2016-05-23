@@ -48,7 +48,7 @@ var api = {
 }
 
 function Wechat(opts) {
-    //var that = this
+    var that = this
     this.appID = opts.appID
     this.appSecret = opts.appSecret
     this.getAccessToken = opts.getAccessToken
