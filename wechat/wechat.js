@@ -685,7 +685,7 @@ Wechat.prototype.getMenu = function() {
 Wechat.prototype.deleteMenu = function() {
     var that = this
     console.log('============',that)
-    console.log(that.fetchAccessToken())
+    console.log('ready to deleteMenu',this.fetchAccessToken())
 
     return new Promise(function(resolve, reject) {
         that.fetchAccessToken()
