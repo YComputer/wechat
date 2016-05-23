@@ -53,7 +53,8 @@ function Wechat(opts) {
     this.appSecret = opts.appSecret
     this.getAccessToken = opts.getAccessToken
     this.saveAccessToken = opts.saveAccessToken
-    this.fetchAccessToken()
+    var temp = this.fetchAccessToken()
+    console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof temp)
 }
 
 Wechat.prototype.fetchAccessToken = function() {

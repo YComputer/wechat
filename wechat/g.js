@@ -6,7 +6,7 @@ var Wechat = require('./wechat')
 var util = require('./util')
 
 
-module.exports = function(opts, reply) {
+module.exports = function(opts, replyHandler) {
     // 初始化 微信回复 对象
     var wechat = new Wechat(opts)
     console.log('init wechat instance 会初始化好多条件，这里的初始化流程还不是最优的')
@@ -56,12 +56,12 @@ module.exports = function(opts, reply) {
                 //console.log('添加后的this', this.weixin)
                 //console.log('添加后的this', this)
 
-                // 消息返回以后，把指针指向业务逻辑，跳出去到reply中去处理业务逻辑。
-                yield reply.call(this, next)
-                // 处理完业务逻辑后，返回到koa框架中，再把指针指向消息回复。
+                // 消息返回以后，把指针指向业务逻辑，跳出去到reply中去处理业务逻辑,就是组合数据。
+                // 这个this就是koa框架的this。
+                yield replyHandler.call(this, next)
+                // 组合完数据后，处理完业务逻辑后，将消息返回给微信server端。
                 wechat.send.call(this)
             }
-
 
         }
     }
