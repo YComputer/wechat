@@ -604,7 +604,7 @@ Wechat.prototype.sendByTag = function(type, message, tagId) {
         msgtype: type
     }
 
-    msg[type] = message
+    msg[type] = type
 
     if(!tagId){
         msg.filter.is_to_all = true
