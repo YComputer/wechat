@@ -78,9 +78,11 @@ Wechat.prototype.fetchAccessToken = function() {
 
             if (that.isValidAccessToken(data)) {
                 // console.log('===============here8==============')
+                console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof Promise.resolve(data))
                 return Promise.resolve(data)
             } else {
                 // console.log('===============here9==============')
+                console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof that.updateAccessToken())
                 return that.updateAccessToken()
             }
         })
@@ -89,6 +91,7 @@ Wechat.prototype.fetchAccessToken = function() {
             that.access_token = data.access_token
             that.expires_in = data.expires_in
             that.saveAccessToken(data)
+                console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof Promise.resolve(data))
 
             return Promise.resolve(data)
         })
