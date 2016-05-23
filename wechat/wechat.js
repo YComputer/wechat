@@ -54,7 +54,7 @@ function Wechat(opts) {
     this.getAccessToken = opts.getAccessToken
     this.saveAccessToken = opts.saveAccessToken
     var temp = this.fetchAccessToken()
-    //console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof temp)
+    console.log('init constorator=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof temp)
 }
 
 Wechat.prototype.fetchAccessToken = function() {
@@ -70,7 +70,7 @@ Wechat.prototype.fetchAccessToken = function() {
                 data = JSON.parse(data)
             } catch (e) {
                 // console.log('===============here7==============')
-                console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof that.updateAccessToken())
+                console.log('73-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof that.updateAccessToken())
                 return that.updateAccessToken()
             }
 
@@ -78,11 +78,11 @@ Wechat.prototype.fetchAccessToken = function() {
 
             if (that.isValidAccessToken(data)) {
                 // console.log('===============here8==============')
-                console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof Promise.resolve(data))
+                console.log('81-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof Promise.resolve(data))
                 return Promise.resolve(data)
             } else {
                 // console.log('===============here9==============')
-                console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof that.updateAccessToken())
+                console.log('85-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof that.updateAccessToken())
                 return that.updateAccessToken()
             }
         })
@@ -91,7 +91,7 @@ Wechat.prototype.fetchAccessToken = function() {
             that.access_token = data.access_token
             that.expires_in = data.expires_in
             that.saveAccessToken(data)
-                console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof Promise.resolve(data))
+                console.log('94-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-',typeof Promise.resolve(data))
 
             return Promise.resolve(data)
         })
