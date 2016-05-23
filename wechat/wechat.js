@@ -694,7 +694,7 @@ Wechat.prototype.deleteMenu = function() {
 
                 request({ method: 'GET', url: url, json: true })
                     .then(function(response) {
-                        conosle.log('delete menu success!!!')
+                        console.log('delete menu success!!!')
                         var _data = response.body
                         if (_data) {
                             resolve(_data)
