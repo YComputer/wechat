@@ -16,6 +16,12 @@ app.use(function *(next){
   console.log('%s %s - %s', this.method, this.url, ms);
 });
 
+app.use(function* (next){
+	if(this.url.indexOf('./movie') > -1){
+		this.body = '<h1>Hi there.<h1>'
+		return next
+	}
+})
 
 // 微信通信 middle ware
 app.use(g(config.wechat, reply.reply))
