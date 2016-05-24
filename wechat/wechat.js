@@ -52,7 +52,7 @@ var api = {
         show: mpPrefix + 'showqrcode?'
     },
     shortUrl:{
-        create: prefixe + 'shorturl?'
+        create: prefix + 'shorturl?'
     },
     semanticUrl:semanticUrl
 }
