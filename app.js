@@ -63,7 +63,7 @@ var createTimestamp = function(){
 }
 var _sign = function(noncestr, ticket, timestamp, url){
 	var params = [
-		'noncestr=' + noncestr
+		'noncestr=' + noncestr,
 		'jsapi_ticket=' + ticket,
 		'timestamp=' + timestamp,
 		'url=' + url
