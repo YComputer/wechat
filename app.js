@@ -55,10 +55,12 @@ var tpl = heredoc(function(){/*
 */})
 
 var createNonce = function(){
+	console.log('params------------->createNonce')
 	return Math.random().toString(36).substr(2,15)
 }
 
 var createTimestamp = function(){
+	console.log('params------------->createTimestamp')
 	return parseInt(new Date().getTime() / 1000, 10) + ''
 }
 var _sign = function(noncestr, ticket, timestamp, url){
@@ -90,9 +92,12 @@ function sign (ticket, url){
 app.use(function* (next){
 	if(this.url.indexOf('/movie') > -1){
 		var wechatApi = new Wechat(config.wechat)
+		console.log('params------------->after new Wechat')
 		var data = yield wechatApi.fetchAccessToken()
+		console.log('params-------------> after fetchAccessToken')
 		var access_token = data.access_token
 		var ticketData = yield wechatApi.fetchTicket(access_token)
+		console.log('params------------->after fetchTicket')
 		var ticket = data.ticket
 		var url = this.href
 		var params = sign(ticket, url)
