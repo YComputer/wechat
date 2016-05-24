@@ -3,7 +3,7 @@
 var path = require('path')
 var util = require('./libs/util')
 var wechat_file = path.join(__dirname, './config/wechat.txt')
-var wechat_file = path.join(__dirname, './config/wechat_ticket.txt')
+var wechat_ticket_file = path.join(__dirname, './config/wechat_ticket.txt')
 
 
 var config = {
