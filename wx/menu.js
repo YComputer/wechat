@@ -38,15 +38,17 @@ module.exports = {
 			'name': '地理位置选择',
 			'type': 'location_select',
 			'key': 'location_select'
-		},{
-			'name': '下发图片消息',
-			'type': 'media_id',
-			'media_id': 'xxx'
-		},{
-			'name': '跳转图文消息url',
-			'type': 'view_limited',
-			'media_id': 'xxx'
 		}]
+
+		// ,{
+		// 	'name': '下发图片消息',
+		// 	'type': 'media_id',
+		// 	'media_id': 'xxx'
+		// },{
+		// 	'name': '跳转图文消息url',
+		// 	'type': 'view_limited',
+		// 	'media_id': 'xxx'
+		// }
 		
 	}]
 }
