@@ -302,18 +302,15 @@ exports.reply = function*(next) {
             var longUrl = 'http://www.fooads.com'
             var shortData = yield wechatApi.createShorturl(null, longUrl)
             reply = shortData.short_url
-        }lse if (content === '20') {
+        }else if (content === '20') {
             var semanticData = {
                 query: 'xxx',
                 city: 'xxx',
                 category: 'move',
                 uid: message.FromUserName
             }
-
             var data = yield wechatApi.semantic(semanticData)
-
             reply = JSON.stringify(data)
-
         }
 
         this.body = reply
