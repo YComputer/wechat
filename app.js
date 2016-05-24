@@ -117,8 +117,8 @@ app.use(function *(next){
 
 
 // 微信通信 middle ware
-//app.use(g(config.wechat, reply.reply))
+app.use(g(config.wechat, reply.reply))
 
 app.listen(8081)
 
-console.log('listening: 80')
+console.log('listening: 8081')
