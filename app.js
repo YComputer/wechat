@@ -81,7 +81,8 @@ function sign (ticket, url){
 	var noncestr = createNonce()
 	var timestamp = createTimestamp()
 	var signature = _sign(noncestr, ticket, timestamp, url)
-
+	console.log(ticket)
+	console.log(url)
 	return {
 		noncestr: noncestr,
 		timestamp: timestamp,
