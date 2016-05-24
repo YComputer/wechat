@@ -17,7 +17,12 @@ app.use(function *(next){
 });
 
 app.use(function* (next){
+
+	console.log('-=-==-=-==-=-=-=-=-=-=--=-=')
+
 	if(this.url.indexOf('./movie') > -1){
+	console.log('!!!!!!!!')
+
 		this.body = '<h1>Hi there.<h1>'
 		return next
 	}
