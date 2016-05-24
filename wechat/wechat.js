@@ -121,7 +121,7 @@ Wechat.prototype.fetchTicket = function(access_token) {
             }
         })
         .then(function(data) {
-            that.saveAccessToken(data)
+            that.saveTicket(data)
             return Promise.resolve(data)
         })
 }
