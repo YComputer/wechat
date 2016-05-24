@@ -11,12 +11,12 @@ var app = new koa()
 
 
 // logger middle ware
-// app.use(function *(next){
-//   var start = new Date;
-//   yield next;
-//   var ms = new Date - start;
-//   console.log('%s %s - %s', this.method, this.url, ms);
-// });
+app.use(function *(next){
+  var start = new Date;
+  yield next;
+  var ms = new Date - start;
+  console.log('%s %s - %s', this.method, this.url, ms);
+});
 
 
 // var ejs = require('ejs')
@@ -119,6 +119,6 @@ var app = new koa()
 // 微信通信 middle ware
 //app.use(g(config.wechat, reply.reply))
 
-app.listen(80)
+app.listen(8081)
 
 console.log('listening: 80')
