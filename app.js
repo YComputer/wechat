@@ -40,7 +40,7 @@ app.use(function* (next){
 	if(this.url.indexOf('/movie') > -1){
 	console.log('!!!!!!!!')
 
-		this.body = ejs.render(tp.,{})
+		this.body = ejs.render(tpl,{})
 		return next
 	}
 
