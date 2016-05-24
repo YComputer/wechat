@@ -17,7 +17,7 @@ exports.reply = function*(next) {
 
     if (message.MsgType === 'event') {
         if (message.Event === 'subscribe') {
-            
+
             wechatApi.deleteMenu().then(function(data) {
                 return wechatApi.createMenu(menu)
             }).then(function(msg) {
@@ -266,7 +266,42 @@ exports.reply = function*(next) {
         } else if (content === '17') {
 
         } else if (content === '18') {
+            var tempQr = {
+                expire_seconds: 40000,
+                action_name:'QR_SCENE',
+                action_info: {
+                    scene:{
+                        scene_id:123
+                    }
+                }
+            }
+            
+            var permQr = {
+                action_name:'QR_LIMIT_SCENE',
+                action_info: {
+                    scene:{
+                        scene_id:123
+                    }
+                }
+            }
 
+            var permStrQr = {
+                action_name:'QR_LIMIT_STR_SCENE',
+                action_info: {
+                    scene:{
+                        scene_id: 'abc'
+                    }
+                }
+            }
+
+            var qr1 = yield wechatApi.createQrcode(tempQr)
+            var qr2 = yield wechatApi.createQrcode(permQr)
+            var qr3 = yield wechatApi.createQrcode(permStrQr)
+
+        }else if (content === '19') {
+            var longUrl = 'http://www.fooads.com'
+            var shortData = yield wechatApi.createShorturl(null, longUrl)
+            reply = shortData.short_url
         }
 
         this.body = reply

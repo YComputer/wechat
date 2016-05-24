@@ -7,6 +7,7 @@ var request = Promise.promisify(require('request'))
 var util = require('./util')
 var fs = require('fs')
 var prefix = 'https://api.weixin.qq.com/cgi-bin/'
+var mpPrefix = 'https://mp.weixin.qq.com/cgi-bin/'
 var api = {
     accessToken: prefix + 'token?grant_type=client_credential',
     temporary: {
@@ -44,6 +45,13 @@ var api = {
         get: prefix + 'menu/get?',
         delete: prefix + 'menu/delete?',
         current: prefix + 'get_current_selfmenu_info?'
+    },
+    qrcode: {
+        create: prefix + 'qrcode/create?',
+        show: mpPrefix + 'showqrcode?'
+    },
+    shortUrl:{
+        create: prefixe + 'shorturl?'
     }
 }
 
@@ -722,6 +730,62 @@ Wechat.prototype.getCurrentMenu = function() {
                             resolve(_data)
                         } else {
                             throw new Error('Get current menu failed')
+                        }
+                    }).catch(function(err) {
+                        reject(err)
+                    })
+            })
+    })
+}
+
+Wechat.prototype.createQrcode = function(qr) {
+    var that = this
+
+    return new Promise(function(resolve, reject) {
+        that.fetchAccessToken()
+            .then(function(data) {
+                var url = api.qrcode.create + 'access_token=' + data.access_token
+
+                request({ method: 'POST', url: url, body: qr, json: true })
+                    .then(function(response) {
+                        var _data = response.body
+                        if (_data) {
+                            resolve(_data)
+                        } else {
+                            throw new Error('Create qrcode failed')
+                        }
+                    }).catch(function(err) {
+                        reject(err)
+                    })
+            })
+    })
+}
+
+Wechat.prototype.showQrcode = function(ticket) {
+    return api.qrcode.show + 'ticket=' + encodeURI(ticket)
+}
+
+Wechat.prototype.createShorturl = function(action, url) {
+    action = action || 'long2short'
+
+    var that = this
+    return new Promise(function(resolve, reject) {
+        that.fetchAccessToken()
+            .then(function(data) {
+                var url = api.shortUrl.create + 'access_token=' + data.access_token
+
+                var form = {
+                    action: action,
+                    long_url:url
+                }
+
+                request({ method: 'POST', url: url, body: qr, json: true })
+                    .then(function(response) {
+                        var _data = response.body
+                        if (_data) {
+                            resolve(_data)
+                        } else {
+                            throw new Error('Create shorturl failed')
                         }
                     }).catch(function(err) {
                         reject(err)
