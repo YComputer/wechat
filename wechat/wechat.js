@@ -8,6 +8,7 @@ var util = require('./util')
 var fs = require('fs')
 var prefix = 'https://api.weixin.qq.com/cgi-bin/'
 var mpPrefix = 'https://mp.weixin.qq.com/cgi-bin/'
+var semanticUrl = 'https://api.weixin.qq.com/semantic/semproxy/search?'
 var api = {
     accessToken: prefix + 'token?grant_type=client_credential',
     temporary: {
@@ -52,7 +53,8 @@ var api = {
     },
     shortUrl:{
         create: prefixe + 'shorturl?'
-    }
+    },
+    semanticUrl:semanticUrl
 }
 
 function Wechat(opts) {
@@ -786,6 +788,30 @@ Wechat.prototype.createShorturl = function(action, url) {
                             resolve(_data)
                         } else {
                             throw new Error('Create shorturl failed')
+                        }
+                    }).catch(function(err) {
+                        reject(err)
+                    })
+            })
+    })
+}
+
+Wechat.prototype.semantic = function(semanticData) {
+    var that = this
+
+    return new Promise(function(resolve, reject) {
+        that.fetchAccessToken()
+            .then(function(data) {
+                var url = api.semanticUrl + 'access_token=' + data.access_token
+
+                semanticData.appid =data.appID
+                request({ method: 'POST', url: url, body: semanticData, json: true })
+                    .then(function(response) {
+                        var _data = response.body
+                        if (_data) {
+                            resolve(_data)
+                        } else {
+                            throw new Error('semantic failed')
                         }
                     }).catch(function(err) {
                         reject(err)
