@@ -21,6 +21,12 @@ module.exports = function(opts, replyHandler) {
         var str = [token, timestamp, nonce].sort().join('')
         var sha = sha1(str)
         if (this.method === 'GET') {
+
+console.log('request from weixin server↓↓↓↓\n' +
+                    ' method is %s \n url is %s \n data is %s \n' +
+                    'request from weixin server↑↑↑↑',
+                    this.method, this.url, JSON.stringify(this.query))
+
             if (sha === signature) {
                 console.log('request from weixin server↓↓↓↓\n' +
                     ' method is %s \n url is %s \n data is %s \n' +
@@ -31,6 +37,12 @@ module.exports = function(opts, replyHandler) {
                 this.body = '来自微信认证以外的GET请求'
             }
         } else if (this.method === 'POST') {
+
+console.log('request from weixin server↓↓↓↓\n' +
+                    ' method is %s \n url is %s \n data is %s \n' +
+                    'request from weixin server↑↑↑↑',
+                    this.method, this.url, JSON.stringify(this.query))
+            
             if (sha !== signature) {
                 this.body = '来自微信server以外的POST请求'
             } else {
