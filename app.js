@@ -19,11 +19,10 @@ app.use(function *(next){
 });
 
 
-// var ejs = require('ejs')
-// var crypto = require('crypto')
-// var heredoc = require('heredoc')
-// var tpl = heredoc(function(){
-/*
+var ejs = require('ejs')
+var crypto = require('crypto')
+var heredoc = require('heredoc')
+var tpl = heredoc(function(){/*
 	<!DOCTYPE html>
 	<html>
 		<head>
@@ -53,43 +52,42 @@ app.use(function *(next){
 			</script>
 		</body>
 	</html>
-*/
-//})
+*/})
 
-// var createNonce = function(){
-// 	console.log('params------------->createNonce')
-// 	return Math.random().toString(36).substr(2,15)
-// }
+var createNonce = function(){
+	console.log('params------------->createNonce')
+	return Math.random().toString(36).substr(2,15)
+}
 
-// var createTimestamp = function(){
-// 	console.log('params------------->createTimestamp')
-// 	return parseInt(new Date().getTime() / 1000, 10) + ''
-// }
-// var _sign = function(noncestr, ticket, timestamp, url){
-// 	var params = [
-// 		'noncestr=' + noncestr,
-// 		'jsapi_ticket=' + ticket,
-// 		'timestamp=' + timestamp,
-// 		'url=' + url
-// 	]
+var createTimestamp = function(){
+	console.log('params------------->createTimestamp')
+	return parseInt(new Date().getTime() / 1000, 10) + ''
+}
+var _sign = function(noncestr, ticket, timestamp, url){
+	var params = [
+		'noncestr=' + noncestr,
+		'jsapi_ticket=' + ticket,
+		'timestamp=' + timestamp,
+		'url=' + url
+	]
 
-// 	var str = params.sort().join('&')
-// 	var shasum = crypto.createHash('sha1')
-// 	shasum.update(str)
+	var str = params.sort().join('&')
+	var shasum = crypto.createHash('sha1')
+	shasum.update(str)
 
-// 	return shasum.digest('hex')
-// }
-// function sign (ticket, url){
-// 	var noncestr = createNonce()
-// 	var timestamp = createTimestamp()
-// 	var signature = _sign(noncestr, ticket, timestamp, url)
+	return shasum.digest('hex')
+}
+function sign (ticket, url){
+	var noncestr = createNonce()
+	var timestamp = createTimestamp()
+	var signature = _sign(noncestr, ticket, timestamp, url)
 
-// 	return {
-// 		noncestr: noncestr,
-// 		timestamp: timestamp,
-// 		signature: signature
-// 	}
-// }
+	return {
+		noncestr: noncestr,
+		timestamp: timestamp,
+		signature: signature
+	}
+}
 
 // app.use(function* (next){
 // 	if(this.url.indexOf('/movie') > -1){
