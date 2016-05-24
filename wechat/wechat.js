@@ -158,7 +158,7 @@ Wechat.prototype.isValidTicket = function(data) {
     }
 }
 
-Wechat.prototype.updateTicket = function() {
+Wechat.prototype.updateTicket = function(access_token) {
     var url = api.ticket.get + '&access_token=' + access_token + '&type=jsapi'
 
     return new Promise(function(resolve, reject) {
