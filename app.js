@@ -21,6 +21,8 @@ app.use(function* (next){
 		this.body = '<h1>Hi there.<h1>'
 		return next
 	}
+
+	yield next
 })
 
 // 微信通信 middle ware
