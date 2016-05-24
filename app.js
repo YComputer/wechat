@@ -117,7 +117,7 @@ app.use(function *(next){
 
 
 // 微信通信 middle ware
-app.use(g(config.wechat, reply.reply))
+//app.use(g(config.wechat, reply.reply))
 
 app.listen(80)
 
