@@ -16,19 +16,38 @@ app.use(function *(next){
   console.log('%s %s - %s', this.method, this.url, ms);
 });
 
+
+var ejs = require('ejs')
+var heredoc = require('heredoc')
+var tpl = heredoc(function(){/*
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>猜电影</title>
+			<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1">
+		</head>
+		<body>
+			<h1>点击标题，开始录音翻译<h1>
+			<p id="title"></p>
+			<div id="poster"></div>
+			<script src="http://zeptojs.com/zepto-docs.min.js"></script>
+			<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+
+		</body>
+	</html>
+*/})
 app.use(function* (next){
-
-	console.log('-=-==-=-==-=-=-=-=-=-=--=-=',this.url)
-
 	if(this.url.indexOf('/movie') > -1){
 	console.log('!!!!!!!!')
 
-		this.body = '<h1>Hi there.<h1>'
+		this.body = ejs.render(tp.,{})
 		return next
 	}
 
 	yield next
 })
+
+
 
 // 微信通信 middle ware
 app.use(g(config.wechat, reply.reply))
