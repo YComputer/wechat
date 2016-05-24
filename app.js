@@ -20,7 +20,7 @@ app.use(function* (next){
 
 	console.log('-=-==-=-==-=-=-=-=-=-=--=-=',this.url)
 
-	if(this.url.indexOf('./movie') > -1){
+	if(this.url.indexOf('/movie') > -1){
 	console.log('!!!!!!!!')
 
 		this.body = '<h1>Hi there.<h1>'
