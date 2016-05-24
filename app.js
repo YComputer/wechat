@@ -94,7 +94,7 @@ app.use(function* (next){
 		var access_token = data.access_token
 		var ticketData = yield wechatApi.fetchTicket(access_token)
 		var ticket = data.ticket
-		var url this.href
+		var url = this.href
 		var params = sign(ticket, url)
 
 		console.log('params------------->',params)
