@@ -6,6 +6,7 @@ var Wechat = require('../wechat/wechat')
 var menu = require('./menu')
 var wechatApi = new Wechat(config.wechat)
 
+// 原因是fetchAccessToken 忘加return了。
 // wechatApi.deleteMenu().then(function(data){
 //     return wechatApi.createMenu(menu)
 // }).then(function(msg){
