@@ -12,24 +12,21 @@ var wechatApi = new Wechat(config.wechat)
 //     console.log('after createMenu-->',msg)
 // })
 
-
 exports.reply = function*(next) {
     var message = this.weixin
 
     if (message.MsgType === 'event') {
         if (message.Event === 'subscribe') {
-
-wechatApi.deleteMenu().then(function(data){
-    return wechatApi.createMenu(menu)
-}).then(function(msg){
-    console.log('after createMenu-->',msg)
-})
             
+            wechatApi.deleteMenu().then(function(data) {
+                return wechatApi.createMenu(menu)
+            }).then(function(msg) {
+                console.log('after createMenu-->', msg)
+            })
+
             if (message.EventKey) {
                 console.log('扫二维码进来：' + message.EventKey + ' ' + message.ticket)
             }
-
-
 
             this.body = '欢迎订阅 fooads\r\n' + ' 消息ID：' + message.MsgId + '请输入1查询订单，2查询余额，3进行充值'
         } else if (message.Event === 'unsubscribe') {
@@ -45,27 +42,27 @@ wechatApi.deleteMenu().then(function(data){
             this.body = '确认你已经扫描了二维码'
         } else if (message.Event === 'VIEW') {
             this.body = '你点击了菜单中的连接：' + message.EventKey
-        }else if (message.Event === 'scancode_push') {
+        } else if (message.Event === 'scancode_push') {
             console.log(message.ScanCodeInfo.ScanType)
             console.log(message.ScanCodeInfo.ScanResult)
             this.body = '你点击了菜单中的连接：' + message.EventKey
-        }else if (message.Event === 'scancode_waitmsg') {  
-         console.log(message.ScanCodeInfo.ScanType)
-            console.log(message.ScanCodeInfo.ScanResult)         
+        } else if (message.Event === 'scancode_waitmsg') {
+            console.log(message.ScanCodeInfo.ScanType)
+            console.log(message.ScanCodeInfo.ScanResult)
             this.body = '你点击了菜单中的连接：' + message.EventKey
-        }else if (message.Event === 'pic_sysphoto') {
+        } else if (message.Event === 'pic_sysphoto') {
             console.log(message.PicList)
             console.log(message.Count)
             this.body = '你点击了菜单中的连接：' + message.EventKey
-        }else if (message.Event === 'pic_photo_or_album') {
+        } else if (message.Event === 'pic_photo_or_album') {
             console.log(message.PicList)
             console.log(message.Count)
             this.body = '你点击了菜单中的连接：' + message.EventKey
-        }else if (message.Event === 'pic_weixin') {
+        } else if (message.Event === 'pic_weixin') {
             console.log(message.PicList)
             console.log(message.Count)
             this.body = '你点击了菜单中的连接：' + message.EventKey
-        }else if (message.Event === 'location_select') {
+        } else if (message.Event === 'location_select') {
             console.log(message.SendLocationInfo.Location_X)
             console.log(message.SendLocationInfo.Location_Y)
             console.log(message.SendLocationInfo.Scale)
@@ -260,15 +257,15 @@ wechatApi.deleteMenu().then(function(data){
             }
 
             //var msgData = yield wechatApi.sendByTag('mpnews',media_id, 100)
-            var msgData = yield wechatApi.sendByTag('text',text, 100)
+            var msgData = yield wechatApi.sendByTag('text', text, 100)
 
             console.log(msgData)
             reply = 'Yeah'
-        }else if (content === '16') {
+        } else if (content === '16') {
 
-        }else if (content === '17') {
+        } else if (content === '17') {
 
-        }else if (content === '18') {
+        } else if (content === '18') {
 
         }
 
