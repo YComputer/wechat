@@ -75,13 +75,13 @@ function Wechat(opts) {
 Wechat.prototype.fetchAccessToken = function() {
     var that = this
 
-    // if (this.access_token && this.expires_in) {
-    //     if (this.isValidAccessToken(this)) {
-    //         return Promise.resolve(this)
-    //     }
-    // }
+    if (this.access_token && this.expires_in) {
+        if (this.isValidAccessToken(this)) {
+            return Promise.resolve(this)
+        }
+    }
 
-    return this.getAccessToken()
+    this.getAccessToken()
         .then(function(data) {
             try {
                 data = JSON.parse(data)
@@ -96,8 +96,8 @@ Wechat.prototype.fetchAccessToken = function() {
             }
         })
         .then(function(data) {
-            //that.access_token = data.access_token
-            //that.expires_in = data.expires_in
+            that.access_token = data.access_token
+            that.expires_in = data.expires_in
             that.saveAccessToken(data)
             return Promise.resolve(data)
         })
