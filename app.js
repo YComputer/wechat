@@ -89,28 +89,28 @@ function sign (ticket, url){
 	}
 }
 
-app.use(function* (next){
-	if(this.url.indexOf('/movie') > -1){
-		var wechatApi = new Wechat(config.wechat)
-		console.log('params------------->after new Wechat')
-		var data = yield wechatApi.fetchAccessToken()
-		console.log('params-------------> after fetchAccessToken')
-		var access_token = data.access_token
-		var ticketData = yield wechatApi.fetchTicket(access_token)
-		console.log('params------------->after fetchTicket')
-		var ticket = data.ticket
-		var url = this.href
-		var params = sign(ticket, url)
+// app.use(function* (next){
+// 	if(this.url.indexOf('/movie') > -1){
+// 		var wechatApi = new Wechat(config.wechat)
+// 		console.log('params------------->after new Wechat')
+// 		var data = yield wechatApi.fetchAccessToken()
+// 		console.log('params-------------> after fetchAccessToken')
+// 		var access_token = data.access_token
+// 		var ticketData = yield wechatApi.fetchTicket(access_token)
+// 		console.log('params------------->after fetchTicket')
+// 		var ticket = data.ticket
+// 		var url = this.href
+// 		var params = sign(ticket, url)
 
-		console.log('params------------->',params)
+// 		console.log('params------------->',params)
 
-		this.body = ejs.render(tpl,params)
+// 		this.body = ejs.render(tpl,params)
 
-		return next
-	}
+// 		return next
+// 	}
 
-	yield next
-})
+// 	yield next
+// })
 
 
 
