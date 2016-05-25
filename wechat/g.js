@@ -13,6 +13,8 @@ module.exports = function(opts, replyHandler) {
 
     return function*(next) {
         // 这里其实应该单独配置一个path用来做微信认证。而不是像现在这样混在整个应用中。
+
+        console.log('-=-=-=-=============')
         var token = opts.token
         var signature = this.query.signature
         var nonce = this.query.nonce
@@ -22,7 +24,7 @@ module.exports = function(opts, replyHandler) {
         var sha = sha1(str)
         if (this.method === 'GET') {
 
-console.log('request from weixin server↓↓↓↓\n' +
+            console.log('request from weixin server↓↓↓↓\n' +
                     ' method is %s \n url is %s \n data is %s \n' +
                     'request from weixin server↑↑↑↑',
                     this.method, this.url, JSON.stringify(this.query))
