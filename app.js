@@ -178,6 +178,6 @@ app.use(function*(next) {
 // 微信通信 middle ware
 app.use(g(config.wechat, reply.reply))
 
-app.listen(8080)
+app.listen(80)
 
-console.log('listening: 8080')
+console.log('listening: 80')
