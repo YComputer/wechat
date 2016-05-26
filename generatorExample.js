@@ -14,6 +14,7 @@
 // console.log(genObj.next())
 // console.log(genObj.next())
 // console.log(genObj.next())
+var request = require('request')
 
 var getRawBody = require('raw-body')
 var koa = require('koa');
@@ -63,10 +64,11 @@ app.use(function *(next){
 // response
 app.use(function *(){
   console.log('before execute body')
+
   this.body = 'Hello World';
   console.log('after execute body', this.body)
 });
 
-app.listen(3000);
-console.log('listen to 3000')
+app.listen(4000);
+console.log('listen to 4000')
 

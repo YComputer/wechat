@@ -6,6 +6,7 @@ var _ = require('lodash')
 var request = Promise.promisify(require('request'))
 var util = require('./util')
 var fs = require('fs')
+var urlencode = require('urlencode');
 var prefix = 'https://api.weixin.qq.com/cgi-bin/'
 var mpPrefix = 'https://mp.weixin.qq.com/cgi-bin/'
 var semanticUrl = 'https://api.weixin.qq.com/semantic/semproxy/search?'
@@ -51,12 +52,15 @@ var api = {
         create: prefix + 'qrcode/create?',
         show: mpPrefix + 'showqrcode?'
     },
-    shortUrl:{
+    shortUrl: {
         create: prefix + 'shorturl?'
     },
-    semanticUrl:semanticUrl,
-    ticket:{
+    semanticUrl: semanticUrl,
+    ticket: {
         get: prefix + 'ticket/getticket?'
+    },
+    machine: {
+        get: 'http://op.juhe.cn/robot/index?key=556571bcf91526652a257fc817a62b17&'
     }
 }
 
@@ -198,6 +202,43 @@ Wechat.prototype.updateAccessToken = function() {
     })
 }
 
+
+Wechat.prototype.talkToMachine = function(talk) {
+    var that = this
+    return new Promise(function(resolve, reject) {
+        //var url = api.machine.get + 'info=' + talk
+
+        //'http://op.juhe.cn/robot/index?key=556571bcf91526652a257fc817a62b17&'
+        // 中文要urlencode
+        var encodetalk = urlencode(talk)
+        var url = 'http://op.juhe.cn/robot/index?info=' + encodetalk + '&key=556571bcf91526652a257fc817a62b17'
+
+        console.log('machine url --------', url)
+        console.log('after encode--------', encodetalk)
+        request({
+            method: 'POST',
+            url: url,
+            json: true
+        }).then(function(response) {
+            var _data = response.body
+            console.log(JSON.stringify(_data))
+            if (_data) {
+                if (_data.result) {
+                    resolve(_data.result.text)
+                } else {
+                    resolve('服务不稳定')
+                }
+
+            } else {
+                throw new Error('talkToMachine failed')
+            }
+
+        }).catch(function(err) {
+            reject(err)
+        })
+    })
+}
+
 Wechat.prototype.uploadMaterial = function(type, material, permanent) {
     var that = this
     var form = {}
@@ -224,8 +265,8 @@ Wechat.prototype.uploadMaterial = function(type, material, permanent) {
     // console.log('tokenurl---', url)
 
     return new Promise(function(resolve, reject) {
-    //var that = this
-        console.log('==========',that.fetchAccessToken())
+        //var that = this
+        console.log('==========', that.fetchAccessToken())
         that.fetchAccessToken()
             .then(function(data) {
                 var url = uploadUrl + 'access_token=' + data.access_token
@@ -649,7 +690,7 @@ Wechat.prototype.listUsers = function(userOpenid) {
             .then(function(data) {
                 var url = api.user.list + 'access_token=' + data.access_token
 
-                if(userOpenid){
+                if (userOpenid) {
                     url += '&next_openid=' + userOpenid
                 }
 
@@ -677,9 +718,9 @@ Wechat.prototype.sendByTag = function(type, message, tagId) {
 
     msg[type] = type
 
-    if(!tagId){
+    if (!tagId) {
         msg.filter.is_to_all = true
-    }else{
+    } else {
         msg.filter = {
             is_to_all: false,
             tag_id: tagId
@@ -754,8 +795,8 @@ Wechat.prototype.getMenu = function() {
 
 Wechat.prototype.deleteMenu = function() {
     var that = this
-    console.log('============',that)
-    console.log('ready to deleteMenu',this.fetchAccessToken())
+    console.log('============', that)
+    console.log('ready to deleteMenu', this.fetchAccessToken())
 
     return new Promise(function(resolve, reject) {
         that.fetchAccessToken()
@@ -838,7 +879,7 @@ Wechat.prototype.createShorturl = function(action, url) {
 
                 var form = {
                     action: action,
-                    long_url:url
+                    long_url: url
                 }
 
                 request({ method: 'POST', url: url, body: qr, json: true })
@@ -864,7 +905,7 @@ Wechat.prototype.semantic = function(semanticData) {
             .then(function(data) {
                 var url = api.semanticUrl + 'access_token=' + data.access_token
 
-                semanticData.appid =data.appID
+                semanticData.appid = data.appID
                 request({ method: 'POST', url: url, body: semanticData, json: true })
                     .then(function(response) {
                         var _data = response.body

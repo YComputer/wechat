@@ -76,6 +76,9 @@ exports.reply = function*(next) {
         var content = message.Content
         var reply = '你说的 ' + message.Content + ' 太复杂了'
 
+        // tolk to machine
+        reply = yield wechatApi.talkToMachine(content)
+
         if (content === '1') {
             reply = '你的订单正在处理中'
         } else if (content === '2') {
